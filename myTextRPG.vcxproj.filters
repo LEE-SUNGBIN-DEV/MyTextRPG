@@ -27,7 +27,7 @@
     <ClCompile Include="Player.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Story.cpp">
+    <ClCompile Include="MainStream.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,7 +41,7 @@
     <ClInclude Include="Character.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Story.h">
+    <ClInclude Include="MainStream.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
