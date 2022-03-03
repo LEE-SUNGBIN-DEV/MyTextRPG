@@ -17,7 +17,7 @@ struct UserInfo
 // --------------------------------- PLAYER
 class Player : public Character
 {
-public:
+private:
     UserInfo userInfo;
     int dmg;
     int exp;

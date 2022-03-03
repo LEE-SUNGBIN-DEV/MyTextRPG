@@ -1,12 +1,38 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "Character.h"
 #include "Monster.h"
 #include "Player.h"
 using namespace std;
 
-#define MAX_SIZE 3
+#define MAX_SIZE 100
+
+// 직업 목록
+enum MyPlayerType
+{
+
+};
+
+// 몬스터 타입 목록
+enum MyMonsterType
+{
+    ENUM_MONSTER_SLIME,
+    ENUM_MONSTER_GOBLIN,
+    ENUM_MONSTER_DRAGON
+};
+
+// 속성 목록
+enum MyElementType
+{
+    ENUM_ELEMENT_FIRE,
+    ENUM_ELEMENT_WATER,
+    ENUM_ELEMENT_WIND,
+    ENUM_ELEMENT_LAND,
+    ENUM_ELEMENT_LIGHT,
+    ENUM_ELEMENT_DARK
+};
 
 // 닉네임 탐색해서 일치하는 닉네임 존재시 해당 "인덱스" 반환
 int FindNicknameIndex(Player player[], string nick);
@@ -14,31 +40,49 @@ int FindNicknameIndex(Player player[], string nick);
 // 닉네임 탐색해서 일치하는 닉네임 존재시 플레이어 정보 "출력"
 void PrintSearchPlayer(Player player[], int index);
 
+void CreateMonster(vector<Character*>& monsterList, Character*& monster)
+{
+    string monSel;
+
+    while (true)
+    {
+        cout << "----------------------------------------------------" << endl;
+        cout << "(몬스터 생성) 목록: 슬라임, 고블린, 드래곤 / (X) 종료" << endl;
+        cout << "----------------------------------------------------" << endl;
+        cin >> monSel;
+        if (monSel == "슬라임" || monSel == "고블린" || monSel == "드래곤")
+        {
+            monster = new Monster(monSel);
+            monsterList.push_back(monster);
+            cout << monSel << " " << "생성 완료" << endl;
+        }
+
+        else if (monSel == "X")
+        {
+            return;
+        }
+
+        else
+        {
+            cout << "Unknown Moster Type" << endl;
+        }
+    }
+}
+
 // --------------------------------- Main
 int main()
 {
-    Player player[MAX_SIZE];
-    Monster monster[MAX_SIZE];
+    vector<Character*> monsterList;
+    Character* monster = NULL;
 
-    player[0].SetName("player1");
-    player[1].SetName("player2");
-    player[2].SetName("player3");
-    monster[0].SetName("버섯");
-    monster[1].SetName("개미");
-    monster[2].SetName("꿀벌");
+    //---------------------------------------몬스터 생성 시작
+    CreateMonster(monsterList, monster);
+    //---------------------------------------몬스터 생성 끝
 
-    player[0].PrintInfo();
-    player[1].PrintInfo();
-    player[2].PrintInfo();
-    monster[0].PrintInfo();
-    monster[1].PrintInfo();
-    monster[2].PrintInfo();
-
-    FindNicknameIndex(player, "1");
-    FindNicknameIndex(player, "player3");
-
-    PrintSearchPlayer(player, FindNicknameIndex(player, "1"));
-    PrintSearchPlayer(player, FindNicknameIndex(player, "player3"));
+    for (int i = 0; i < monsterList.size(); i++)
+    {
+        monsterList[i]->PrintInfo();
+    }
 
     return 0;
 }
@@ -51,7 +95,7 @@ int FindNicknameIndex(Player player[], string nick)
 
     for (int i = 0; i < MAX_SIZE; i++)
     {
-        if (nick == player[i].name)
+        if (nick == player[i].GetName())
         {
             cout << "일치하는 플레이어가 존재합니다." << endl;
             cout << "IndexNum: " << i << endl;

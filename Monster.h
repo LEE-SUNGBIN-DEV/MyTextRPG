@@ -6,7 +6,7 @@
 // --------------------------------- MONSTER
 class Monster : public Character
 {
-public:
+private:
     std::string element;
     int dmg;
 
@@ -16,6 +16,13 @@ public:
     {
         this->element = "NONE";
         this->name = "NONE";
+        this->dmg = 1;
+    }
+
+    Monster(std::string _name)
+    {
+        this->element = "NONE";
+        this->name = _name;
         this->dmg = 1;
     }
 

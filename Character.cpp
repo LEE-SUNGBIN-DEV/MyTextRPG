@@ -5,16 +5,21 @@
 // --------------------------------- CLASS
 // --------------------------------- CHARACTER
 // 기능 함수
-void Character::rebirth()
+void Character::Rebirth()
 {
     this->alive = true;
     std::cout << "부활하였습니다" << std::endl;
 }
 
-void Character::death()
+void Character::Death()
 {
     this->alive = false;
     std::cout << "사망하였습니다" << std::endl;
+}
+
+void Character::FreeMemory()
+{
+    delete(this);
 }
 
 // 캐릭터 정보 출력

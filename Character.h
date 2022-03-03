@@ -5,7 +5,7 @@
 // --------------------------------- CHARACTER
 class Character
 {
-public:
+private:
     std::string name;
     int hp;
     int mp;
@@ -24,22 +24,23 @@ public:
     }
 
     // 기능 함수
-    void rebirth();
-    void death();
+    virtual void Rebirth();
+    virtual void Death();
+    virtual void FreeMemory();
 
     // 캐릭터 정보 출력
-    void PrintInfo();
+    virtual void PrintInfo();
 
     // Get Info
-    std::string GetName();
-    int GetHp();
-    int GetMp();
-    float GetMoveSpeed();
-    bool GetAlive();
+    virtual std::string GetName();
+    virtual int GetHp();
+    virtual int GetMp();
+    virtual float GetMoveSpeed();
+    virtual bool GetAlive();
 
     // Set Info
-    void SetName(std::string _name);
-    void SetHp(int _hp);
-    void SetMp(int _hp);
-    void SetMoveSpeed(float _moveSpeed);
+    virtual void SetName(std::string _name);
+    virtual void SetHp(int _hp);
+    virtual void SetMp(int _hp);
+    virtual void SetMoveSpeed(float _moveSpeed);
 };

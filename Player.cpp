@@ -9,14 +9,14 @@
 void Player::PrintInfo()
 {
     std::cout << "-------------------------------------" << std::endl;
-    std::cout << "   Name: " << this->name << std::endl;
-    std::cout << "   HP: " << this->hp << std::endl;
-    std::cout << "   MP: " << this->mp << std::endl;
-    std::cout << "   DMG: " << this->dmg << std::endl;
-    std::cout << "   이동속도: " << this->moveSpeed << std::endl;
-    if (this->alive == true)
+    std::cout << "   Name: " << this->GetName() << std::endl;
+    std::cout << "   HP: " << this->GetHp() << std::endl;
+    std::cout << "   MP: " << this->GetMp() << std::endl;
+    std::cout << "   DMG: " << this->GetDmg() << std::endl;
+    std::cout << "   이동속도: " << this->GetMoveSpeed() << std::endl;
+    if (this->GetAlive() == true)
         std::cout << "   상태: 생존" << std::endl;
-    else if (this->alive == false)
+    else if (this->GetAlive() == false)
         std::cout << "   상태: 사망" << std::endl;
     std::cout << "   exp: " << this->exp << std::endl;
     std::cout << "   userAge: " << this->userInfo.userAge << std::endl;
