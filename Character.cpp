@@ -57,9 +57,9 @@ void Character::SetHp(int _hp)
     this->hp = _hp;
     return;
 }
-void Character::SetMp(int _hp)
+void Character::SetMp(int _mp)
 {
-    this->hp = _hp;
+    this->mp = _mp;
     return;
 }
 void Character::SetMoveSpeed(float _moveSpeed)
