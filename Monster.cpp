@@ -19,7 +19,7 @@ void Monster::PrintInfo()
         std::cout << "   상태: 생존" << std::endl;
     else if (this->GetAlive() == false)
         std::cout << "   상태: 사망" << std::endl;
-    std::cout << "   속성: " << this->element << std::endl;
+    std::cout << "   속성: " << this->GetElement() << std::endl;
     std::cout << "-------------------------------------" << std::endl;
 
     return;
@@ -28,6 +28,7 @@ void Monster::PrintInfo()
 // Get Info
 std::string Monster::GetElement() { return this->element; }
 int Monster::GetDmg() { return this->dmg; }
+
 
 // Set Info
 void Monster::SetElement(std::string _element)

@@ -2,6 +2,8 @@
 #include <iostream>
 #include "Character.h"
 
+class Character;
+
 // --------------------------------- CLASS
 // --------------------------------- MONSTER
 class Monster : public Character
@@ -15,14 +17,12 @@ public:
     Monster()
     {
         this->element = "NONE";
-        this->name = "NONE";
         this->dmg = 1;
     }
-
     Monster(std::string _name)
     {
+        this->Character::SetName(_name);
         this->element = "NONE";
-        this->name = _name;
         this->dmg = 1;
     }
 

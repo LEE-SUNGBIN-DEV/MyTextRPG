@@ -22,6 +22,14 @@ public:
         this->moveSpeed = 1.0f;
         this->alive = true;
     }
+    Character(std::string _name)
+    {
+        this->name = "_name";
+        this->hp = 100;
+        this->mp = 50;
+        this->moveSpeed = 1.0f;
+        this->alive = true;
+    }
 
     // 기능 함수
     virtual void Rebirth();
@@ -32,15 +40,15 @@ public:
     virtual void PrintInfo();
 
     // Get Info
-    virtual std::string GetName();
-    virtual int GetHp();
-    virtual int GetMp();
-    virtual float GetMoveSpeed();
-    virtual bool GetAlive();
+    std::string GetName();
+    int GetHp();
+    int GetMp();
+    float GetMoveSpeed();
+    bool GetAlive();
 
     // Set Info
-    virtual void SetName(std::string _name);
-    virtual void SetHp(int _hp);
-    virtual void SetMp(int _hp);
-    virtual void SetMoveSpeed(float _moveSpeed);
+    void SetName(std::string _name);
+    void SetHp(int _hp);
+    void SetMp(int _hp);
+    void SetMoveSpeed(float _moveSpeed);
 };

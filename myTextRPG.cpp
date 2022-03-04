@@ -1,19 +1,16 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <Windows.h>
 
+#include "MainStream.h"
 #include "Character.h"
 #include "Monster.h"
 #include "Player.h"
 using namespace std;
 
 #define MAX_SIZE 100
-
-// 직업 목록
-enum MyPlayerType
-{
-
-};
+string gameTitle = "TEXT RPG";
 
 // 몬스터 타입 목록
 enum MyMonsterType
@@ -34,11 +31,53 @@ enum MyElementType
     ENUM_ELEMENT_DARK
 };
 
-// 닉네임 탐색해서 일치하는 닉네임 존재시 해당 "인덱스" 반환
-int FindNicknameIndex(Player player[], string nick);
+int MainTitle()
+{
+    int titleSel;
 
-// 닉네임 탐색해서 일치하는 닉네임 존재시 플레이어 정보 "출력"
-void PrintSearchPlayer(Player player[], int index);
+    system("cls");
+    cout << "==========================" << endl;
+    cout << gameTitle << endl;
+    cout << "==========================" << endl;
+    cout << "1. 게임 시작" << endl;
+    cout << "2. 게임 종료" << endl;
+    cout << "선택 >> ";
+
+    cin >> titleSel;
+
+    return titleSel;
+}
+void SetPlayer(vector<Character*>& playerList, Character*& player)
+{
+    int playerSel;
+
+    system("cls");
+    cout << "==========================" << endl;
+    cout << "직업을 선택하세요." << endl;
+    cout << "1. 전사" << endl;
+    cout << "2. 마법사" << endl;
+    cout << "==========================" << endl;
+    cout << "선택 >> ";
+    cin >> playerSel;
+
+    while (true)
+    {
+        if (playerSel == ENUM_PLAYER_KNIGHT
+            || playerSel == ENUM_PLAYER_MAGICIAN)
+        {
+            player = new Player(playerSel);
+            playerList.push_back(player);
+            cout << "직업 선택 완료" << endl;
+
+            return;
+        }
+
+        else
+        {
+            cout << "ERROR: WRONG INPUT: setPlayer()" << endl;
+        }
+    }
+}
 
 void CreateMonster(vector<Character*>& monsterList, Character*& monster)
 {
@@ -47,7 +86,7 @@ void CreateMonster(vector<Character*>& monsterList, Character*& monster)
     while (true)
     {
         cout << "----------------------------------------------------" << endl;
-        cout << "(몬스터 생성) 목록: 슬라임, 고블린, 드래곤 / (X) 종료" << endl;
+        cout << "(몬스터 생성) 목록: 슬라임, 고블린, 드래곤 / X: 종료" << endl;
         cout << "----------------------------------------------------" << endl;
         cin >> monSel;
         if (monSel == "슬라임" || monSel == "고블린" || monSel == "드래곤")
@@ -64,26 +103,37 @@ void CreateMonster(vector<Character*>& monsterList, Character*& monster)
 
         else
         {
-            cout << "Unknown Moster Type" << endl;
+            cout << "ERROR: UNKNOWN MONSTER TYPE" << endl;
         }
     }
 }
 
+// 닉네임 탐색해서 일치하는 닉네임 존재시 해당 "인덱스" 반환
+int FindNicknameIndex(Player player[], string nick);
+// 닉네임 탐색해서 일치하는 닉네임 존재시 플레이어 정보 "출력"
+void PrintSearchPlayer(Player player[], int index);
+
 // --------------------------------- Main
 int main()
 {
-    vector<Character*> monsterList;
+    MainStream* Scene;
+    Character* player = NULL;
     Character* monster = NULL;
+    vector<Character*> playerList;
+    vector<Character*> monsterList;
+    int sel = 0;
 
-    //---------------------------------------몬스터 생성 시작
-    CreateMonster(monsterList, monster);
-    //---------------------------------------몬스터 생성 끝
+    Scene = new MainStream();
 
-    for (int i = 0; i < monsterList.size(); i++)
+    sel = MainTitle();
+    switch (sel)
     {
-        monsterList[i]->PrintInfo();
-    }
+    case 1:
+        SetPlayer(playerList, player);
 
+    case 2: return 0;
+    }
+    
     return 0;
 }
 
@@ -114,9 +164,7 @@ int FindNicknameIndex(Player player[], string nick)
 void PrintSearchPlayer(Player player[], int index)
 {
     if (index == -1)
-    {
         return;
-    }
 
     else
     {
