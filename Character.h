@@ -5,7 +5,7 @@
 // --------------------------------- CHARACTER
 class Character
 {
-private:
+protected:
     std::string name;
     int hp;
     int mp;
@@ -40,15 +40,15 @@ public:
     virtual void PrintInfo();
 
     // Get Info
-    std::string GetName();
-    int GetHp();
-    int GetMp();
-    float GetMoveSpeed();
-    bool GetAlive();
+    virtual std::string GetName();
+    virtual int GetHp();
+    virtual int GetMp();
+    virtual float GetMoveSpeed();
+    virtual bool GetAlive();
 
     // Set Info
-    void SetName(std::string _name);
-    void SetHp(int _hp);
-    void SetMp(int _hp);
-    void SetMoveSpeed(float _moveSpeed);
+    virtual void SetName(std::string _name);
+    virtual void SetHp(int _hp);
+    virtual void SetMp(int _hp);
+    virtual void SetMoveSpeed(float _moveSpeed);
 };

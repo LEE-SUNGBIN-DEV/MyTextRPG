@@ -1,9 +1,32 @@
 #include "Monster.h"
 #include "Player.h"
-#include "Character.h"
 
 // --------------------------------- CLASS
 // --------------------------------- MONSTER
+
+// 공격 함수
+void Monster::Attack(Player* player)
+{
+    player->SetHp(player->GetHp() - this->GetDmg());
+}
+void Monster::SkillA(Player* player)
+{
+    int mul = 2;
+
+    player->SetHp(player->GetHp() - (this->GetDmg() * mul));
+}
+void Monster::SkillB(Player* player)
+{
+    int mul = 3;
+
+    player->SetHp(player->GetHp() - (this->GetDmg() * mul));
+}
+void Monster::SkillC(Player* player)
+{
+    int mul = 4;
+
+    player->SetHp(player->GetHp() - (this->GetDmg() * mul));
+}
 
 // 기능 함수
 void Monster::PrintInfo()

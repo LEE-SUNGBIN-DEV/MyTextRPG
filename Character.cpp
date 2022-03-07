@@ -1,5 +1,3 @@
-#include "Monster.h"
-#include "Player.h"
 #include "Character.h"
 
 // --------------------------------- CLASS
@@ -8,13 +6,13 @@
 void Character::Rebirth()
 {
     this->alive = true;
-    std::cout << "부활하였습니다" << std::endl;
+    std::cout << this->name << "이(가) 부활하였습니다." << std::endl;
 }
 
 void Character::Death()
 {
     this->alive = false;
-    std::cout << "사망하였습니다" << std::endl;
+    std::cout << this->name << "이(가) 사망하였습니다." << std::endl;
 }
 
 void Character::FreeMemory()

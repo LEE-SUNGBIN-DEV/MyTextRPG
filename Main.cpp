@@ -2,10 +2,10 @@
 #include <string>
 #include <vector>
 #include <Windows.h>
-
 #include "Character.h"
 #include "Monster.h"
 #include "Player.h"
+
 using namespace std;
 
 string gameTitle = "TEXT RPG";
@@ -160,23 +160,15 @@ void CombatMenu(Player* player, Monster* monster)
 
     while (true)
     {
-        if (monster->GetHp < 0)
-        {
-            cout << "전투 종료" << endl;
-            return;
-        }
-
         cout << "입력 >> ";
         cin >> combatSel;
         switch (combatSel)
         {
         case 1:
             player->Attack(monster);
-            cout << "몬스터 HP : " << monster->GetHp() << endl;
             break;
         case 2:
             player->SkillA(monster);
-            cout << "몬스터 HP : " << monster->GetHp() << endl;
             break;
         case 3:
             player->SkillB(monster);
@@ -186,34 +178,76 @@ void CombatMenu(Player* player, Monster* monster)
             break;
         case 0: return;
         }
+
+        if (monster->GetHp() <= 0)
+        {
+            monster->Death();
+            cout << "전투 종료" << endl;
+            return;
+        }
+        cout << monster->GetName() << " HP : " << monster->GetHp() << endl;
+
+        monster->Attack(player);
+        if (player->GetHp() <= 0)
+        {
+            player->Death();
+            cout << "전투 종료" << endl;
+            return;
+        }
+        cout << player->GetName() << " HP : " << player->GetHp() << endl;
     }
 }
 
 // Scene
-void ChapterOne(Player* player, int _progress)
+void Chapter1(Player* player, int* _progress)
 { 
     Monster* monster = NULL;
 
-    if (_progress == 0)
+    while (*_progress == 1)
     {
         monster = new Monster("슬라임");
         system("cls");
         std::cout << "==========================" << std::endl;
-        std::cout << "Chapter 1" << std::endl;
+        std::cout << "Chapter " << *_progress << std::endl;
         std::cout << "[슬라임 사냥]" << std::endl;
         std::cout << "==========================" << std::endl;
 
         cin.get();
         CombatMenu(player, monster);
+
+        if (monster->GetAlive() == false
+            && player->GetAlive() == true)
+        {
+            std::cout << "==========================" << std::endl;
+            std::cout << "Chapter " << *_progress << std::endl;
+            std::cout << "[슬라임 사냥] 클리어" << std::endl;
+            std::cout << "==========================" << std::endl;
+            delete(monster);
+            *_progress = *_progress + 1;
+            cin.get();
+            return;
+        }
+
+        else
+        {
+            cout << "Game Over" << endl;
+            delete(monster);
+            cin.get();
+            return;
+        }
     }
 
-    else
+    if (*_progress != 1)
     {
-        std::cout << "ERROR: WRONG ACCESS: MAIN STREAM CHAPTER 1" << std::endl;
+        std::cout << "ERROR: WRONG ACCESS: MAIN STREAM CHAPTER " << *_progress << std::endl;
         return;
     }
-}
 
+    return;
+}
+void Chapter2(Player* player, int* _progress)
+{
+}
 //
 int FindNicknameIndex(vector<Player*> player, string nick);
 void PrintSearchPlayer(vector<Player*> player, int index);
@@ -225,8 +259,8 @@ int main()
     Monster* monster = NULL;
     vector<Player*> playerList;
     vector<Monster*> monsterList;
+    int* progress = new int(1);
     int sel = 0;
-    int progress = 0;
 
     sel = MainTitle();
 
@@ -237,12 +271,15 @@ int main()
         SetUserInfo(playerList, 0);
         SetCharInfo(playerList, 0);
 
-        ChapterOne(playerList[0], progress);
+        Chapter1(playerList[0], progress);
+        Chapter2(playerList[0], progress);
 
     case 2:
         return 0;
     }
     
+    //
+
     return 0;
 }
 

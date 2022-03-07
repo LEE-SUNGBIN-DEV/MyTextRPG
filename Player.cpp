@@ -1,6 +1,5 @@
-#include "Monster.h"
 #include "Player.h"
-#include "Character.h"
+#include "Monster.h"
 #include "Item.h"
 
 // --------------------------------- CLASS
@@ -19,11 +18,15 @@ void Player::SkillA(Monster* monster)
 }
 void Player::SkillB(Monster* monster)
 {
+    int mul = 3;
 
+    monster->SetHp(monster->GetHp() - (this->GetDmg() * mul));
 }
 void Player::SkillC(Monster* monster)
 {
+    int mul = 4;
 
+    monster->SetHp(monster->GetHp() - (this->GetDmg() * mul));
 }
 
 // 기능 함수

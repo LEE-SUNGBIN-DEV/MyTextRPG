@@ -1,8 +1,10 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "Character.h"
 #include "Item.h"
+#include "Character.h"
+
+class Monster;
 
 // 직업 목록
 enum MyPlayerType
@@ -49,6 +51,11 @@ public:
 
     Player(int sel)
     {
+        this->playerType = ENUM_PLAYER_NONE;
+        this->dmg = 0;
+        this->def = 0;
+        this->exp = 0;
+
         switch (sel)
         {
         case 1:

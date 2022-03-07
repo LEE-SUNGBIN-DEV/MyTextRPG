@@ -2,6 +2,8 @@
 #include <iostream>
 #include "Character.h"
 
+class Player;
+
 // 몬스터 타입 목록
 enum MyMonsterType
 {
@@ -42,6 +44,12 @@ public:
         this->element = "NONE";
         this->dmg = 1;
     }
+
+    // 공격 함수
+    void Attack(Player* player);
+    void SkillA(Player* player);
+    void SkillB(Player* player);
+    void SkillC(Player* player);
 
     // 기능 함수
     void PrintInfo();
