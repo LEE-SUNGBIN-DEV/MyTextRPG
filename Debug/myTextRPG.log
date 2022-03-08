@@ -1,7 +1,3 @@
-﻿  Character.cpp
-  Monster.cpp
-  Player.cpp
-C:\VisualProject\myTextRPG\Player.cpp(63,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\VisualProject\myTextRPG\Player.cpp(82,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  코드를 생성하고 있습니다...
+﻿  Main.cpp
+C:\VisualProject\myTextRPG\Main.cpp(374,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
   myTextRPG.vcxproj -> C:\VisualProject\myTextRPG\Debug\myTextRPG.exe

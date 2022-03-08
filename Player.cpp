@@ -8,19 +8,16 @@
 // ----------------------공격 함수
 void Player::Attack(Monster* monster)
 {
-    std::cout << "==========================" << std::endl;
-    std::cout << this->name << "이(가) "
-        << monster->GetName() << "에게 기본 공격!" << std::endl;
-    std::cout << "==========================" << std:: endl;
+    std::cout << "[ " << this->name << "이(가) "
+        << monster->GetName() << "에게 기본 공격! ]" << std::endl;
     monster->SetHp(monster->GetHp() - this->GetDmg());
 }
 void Player::SkillA(Monster* monster)
 {
     int mul = 2;
-    std::cout << "==========================" << std::endl;
-    std::cout << this->name << "이(가) "
-        << monster->GetName() << "에게 스킬A를 사용!" << std::endl;
-    std::cout << "==========================" << std::endl;
+
+    std::cout << "[ " << this->name << "이(가) "
+        << monster->GetName() << "에게 스킬A 사용! ]" << std::endl;
 
     monster->SetHp(monster->GetHp() - (this->GetDmg()*mul));
 }
@@ -28,20 +25,17 @@ void Player::SkillB(Monster* monster)
 {
     int mul = 3;
 
-    std::cout << "==========================" << std::endl;
-    std::cout << this->name << "이(가) "
-        << monster->GetName() << "에게 스킬B를 사용!" << std::endl;
-    std::cout << "==========================" << std::endl;
+    std::cout << "[ " << this->name << "이(가) "
+        << monster->GetName() << "에게 스킬B 사용! ]" << std::endl;
 
     monster->SetHp(monster->GetHp() - (this->GetDmg() * mul));
 }
 void Player::SkillC(Monster* monster)
 {
     int mul = 4;
-    std::cout << "==========================" << std::endl;
-    std::cout << this->name << "이(가) "
-        << monster->GetName() << "에게 스킬C를 사용!" << std::endl;
-    std::cout << "==========================" << std::endl;
+
+    std::cout << "[ " << this->name << "이(가) "
+        << monster->GetName() << "에게 스킬C 사용!] " << std::endl;
 
     monster->SetHp(monster->GetHp() - (this->GetDmg() * mul));
 }
@@ -77,7 +71,7 @@ void Player::PrintInventory()
 {
     for (int i = 0; i < this->userInventory.size(); i++)
     {
-        this->userInventory[i]->PrintItem();
+        this->userInventory[i]->PrintItem(i);
     }
 }
 
@@ -195,11 +189,16 @@ int Player::SearchItem(std::string _name)
             return i;
         }
     }
+
+    return -1;
 }
 void Player::UseInventoryItem(int _index)
 {
-    this->RemoveItem(_index);
-    this->userInventory[_index]->UseItem();
+    if (this->userInventory[_index]->GetItemNum() > 0)
+    {
+        this->userInventory[_index]->UseItem();
+        this->RemoveItem(_index);
+    }
 }
 
 // Get

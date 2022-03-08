@@ -16,8 +16,17 @@ void Item::UseItem()
 void Item::PrintItem()
 {
     std::cout << "==========================" << std::endl;
-    std::cout << "아이템명: " << this->itemName << std::endl;
-    std::cout << "수량: " << this->itemNum << std::endl;
+    std::cout << "[" << this->itemName << "] "
+        << "[" << this->itemNum << "]" << std::endl;
+    std::cout << "==========================" << std::endl;
+}
+
+void Item::PrintItem(int _index)
+{
+    std::cout << "==========================" << std::endl;
+    std::cout << "[슬롯 번호: " << _index << "] "
+        << "[" << this->itemName << "] "
+        << "[" << this->itemNum << "]" << std::endl;
     std::cout << "==========================" << std::endl;
 }
 
@@ -30,6 +39,10 @@ int Item::GetItemNum()
 {
     return this->itemNum;
 }
+int Item::GetItemPrice()
+{
+    return this->itemPrice;
+}
 
 // set
 void Item::SetItemName(std::string _itemName)
@@ -40,4 +53,8 @@ void Item::SetItemName(std::string _itemName)
 void Item::SetItemNum(int _itemNum)
 {
     this->itemNum = _itemNum;
+}
+void Item::SetItemPrice(int _itemPrice)
+{
+    this->itemPrice = _itemPrice;
 }

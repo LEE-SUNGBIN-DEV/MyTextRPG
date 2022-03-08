@@ -108,6 +108,7 @@ void SetCharInfo(vector<Player*>& playerList, int playerIndex)
     cout << "==========================" << endl;
     playerList[playerIndex]->PrintInfo();
 
+    playerList[playerIndex]->AddItem("회복물약");
     cin.get();
     cin.get();
 
@@ -143,62 +144,6 @@ void CreateMonster(vector<Monster*>& monsterList, Monster*& monster)
 }
 
 // Menu
-void CombatMenu(Player* player, Monster* monster)
-{
-    int combatSel = 0;
-
-    system("cls");
-    cout << "==========================" << endl;
-    cout << " 전투 메뉴" << endl;
-    cout << "==========================" << endl;
-    cout << " 1. 일반 공격" << endl;
-    cout << " 2. 스킬 1" << endl;
-    cout << " 3. 스킬 2" << endl;
-    cout << " 4. 스킬 3" << endl;
-    cout << " 0. 마을로" << endl;
-    cout << "==========================" << endl;
-
-    while (true)
-    {
-        cout << "입력 >> ";
-        cin >> combatSel;
-        switch (combatSel)
-        {
-        case 1:
-            player->Attack(monster);
-            break;
-        case 2:
-            player->SkillA(monster);
-            break;
-        case 3:
-            player->SkillB(monster);
-            break;
-        case 4:
-            player->SkillC(monster);
-            break;
-        case 0:
-            TownMenu(player);
-            break;
-        }
-
-        if (!monster->GetAlive())
-        {
-            cout << "==========================" << endl;
-            cout << "전투 종료" << endl;
-            cout << "==========================" << endl;
-            return;
-        }
-        cout << monster->GetName() << " HP : " << monster->GetHp() << endl;
-
-        monster->Attack(player);
-        if (!player->GetAlive())
-        {
-            cout << "전투 종료" << endl;
-            return;
-        }
-        cout << player->GetName() << " HP : " << player->GetHp() << endl;
-    }
-}
 void InventoryMenu(Player* player)
 {
     int invenSel = 0;
@@ -224,10 +169,71 @@ void InventoryMenu(Player* player)
             player->PrintInventory();
             break;
         case 2:
-            cout << "==========================" << endl;
-            cout << "사용할 아이템 번호 입력 >> ";
+            cout << "사용할 슬롯 번호 입력 >> ";
             cin >> itemSel;
             player->UseInventoryItem(itemSel);
+            break;
+        case 0:
+            return;
+        }
+    }
+}
+void ShopMenu(Player* player)
+{
+    int shopSel = 0;
+
+    system("cls");
+    cout << "==========================" << endl;
+    cout << " 상점" << endl;
+    cout << "==========================" << endl;
+    cout << " 1. 회복 물약" << endl;
+    cout << " 2. 마나 물약" << endl;
+    cout << " 0. 돌아가기" << endl;
+    cout << "==========================" << endl;
+
+    while (true)
+    {
+        cout << "구매 >> ";
+        cin >> shopSel;
+
+        switch (shopSel)
+        {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 0:
+            return;
+        }
+    }
+}
+void TownMenu(Player* player)
+{
+    int townSel = 0;
+
+    system("cls");
+
+    while (true)
+    {
+        cout << "==========================" << endl;
+        cout << " 마을 메뉴" << endl;
+        cout << "==========================" << endl;
+        cout << " 1. 인벤토리" << endl;
+        cout << " 2. 상점으로" << endl;
+        cout << " 0. 돌아가기" << endl;
+        cout << "==========================" << endl;
+        cout << "입력 >> ";
+        cin >> townSel;
+
+        switch (townSel)
+        {
+        case 1:
+            InventoryMenu(player);
+            system("cls");
+            break;
+        case 2:
+            ShopMenu(player);
+            system("cls");
             break;
         case 0:
             return;
@@ -235,38 +241,66 @@ void InventoryMenu(Player* player)
 
     }
 }
-void ShopMenu(Player* player)
+void CombatMenu(Player* player, Monster* monster)
 {
-
-}
-void TownMenu(Player* player)
-{
-    int townSel = 0;
+    int combatSel = 0;
 
     system("cls");
-    cout << "==========================" << endl;
-    cout << " 마을 메뉴" << endl;
-    cout << "==========================" << endl;
-    cout << " 1. 인벤토리" << endl;
-    cout << " 2. 상점으로" << endl;
-    cout << " 0. 돌아가기" << endl;
-    cout << "==========================" << endl;
 
     while (true)
     {
+        if (combatSel == 0)
+        {
+            cout << "==========================" << endl;
+            cout << " 전투 메뉴" << endl;
+            cout << "==========================" << endl;
+            cout << " 1. 일반 공격" << endl;
+            cout << " 2. 스킬 1" << endl;
+            cout << " 3. 스킬 2" << endl;
+            cout << " 4. 스킬 3" << endl;
+            cout << " 0. 마을로" << endl;
+            cout << "==========================" << endl;
+        }
         cout << "입력 >> ";
-        cin >> townSel;
-        switch (townSel)
+        cin >> combatSel;
+
+        switch (combatSel)
         {
         case 1:
-            InventoryMenu(player);
+            player->Attack(monster);
             break;
         case 2:
+            player->SkillA(monster);
+            break;
+        case 3:
+            player->SkillB(monster);
+            break;
+        case 4:
+            player->SkillC(monster);
             break;
         case 0:
-            return;
+            TownMenu(player);
+            system("cls");
+            break;
         }
 
+        if (combatSel != 0)
+        {
+            if (!monster->GetAlive())
+            {
+                cout << "[ 전투 종료 ]" << endl;
+                return;
+            }
+            cout << "[ " << monster->GetName() << " HP : " << monster->GetHp() << " ]" << endl;
+
+            monster->Attack(player);
+            if (!player->GetAlive())
+            {
+                cout << "[ 전투 종료] " << endl;
+                return;
+            }
+            cout << "[ " << player->GetName() << " HP : " << player->GetHp() << " ]" << endl;
+        }
     }
 }
 
@@ -320,6 +354,7 @@ void Chapter1(Player* player, int* _progress)
 void Chapter2(Player* player, int* _progress)
 {
 }
+
 //
 int FindNicknameIndex(vector<Player*> player, string nick);
 void PrintSearchPlayer(vector<Player*> player, int index);
@@ -340,8 +375,8 @@ int main()
     {
     case 1:
         CreatePlayer(playerList, player);
-        SetUserInfo(playerList, 0);
         SetCharInfo(playerList, 0);
+        SetUserInfo(playerList, 0);
 
         Chapter1(playerList[0], progress);
         Chapter2(playerList[0], progress);
