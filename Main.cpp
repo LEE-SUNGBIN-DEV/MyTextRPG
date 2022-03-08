@@ -142,7 +142,7 @@ void CreateMonster(vector<Monster*>& monsterList, Monster*& monster)
     }
 }
 
-// Combat Menu
+// Menu
 void CombatMenu(Player* player, Monster* monster)
 {
     int combatSel = 0;
@@ -155,7 +155,7 @@ void CombatMenu(Player* player, Monster* monster)
     cout << " 2. 스킬 1" << endl;
     cout << " 3. 스킬 2" << endl;
     cout << " 4. 스킬 3" << endl;
-    cout << " 0. 끝내기" << endl;
+    cout << " 0. 마을로" << endl;
     cout << "==========================" << endl;
 
     while (true)
@@ -176,25 +176,97 @@ void CombatMenu(Player* player, Monster* monster)
         case 4:
             player->SkillC(monster);
             break;
-        case 0: return;
+        case 0:
+            TownMenu(player);
+            break;
         }
 
-        if (monster->GetHp() <= 0)
+        if (!monster->GetAlive())
         {
-            monster->Death();
+            cout << "==========================" << endl;
             cout << "전투 종료" << endl;
+            cout << "==========================" << endl;
             return;
         }
         cout << monster->GetName() << " HP : " << monster->GetHp() << endl;
 
         monster->Attack(player);
-        if (player->GetHp() <= 0)
+        if (!player->GetAlive())
         {
-            player->Death();
             cout << "전투 종료" << endl;
             return;
         }
         cout << player->GetName() << " HP : " << player->GetHp() << endl;
+    }
+}
+void InventoryMenu(Player* player)
+{
+    int invenSel = 0;
+    int itemSel = 0;
+
+    system("cls");
+    cout << "==========================" << endl;
+    cout << " 인벤토리" << endl;
+    cout << "==========================" << endl;
+    cout << " 1. 아이템 목록 보기" << endl;
+    cout << " 2. 아이템 사용" << endl;
+    cout << " 0. 돌아가기" << endl;
+    cout << "==========================" << endl;
+
+    while (true)
+    {
+        cout << "입력 >> ";
+        cin >> invenSel;
+
+        switch (invenSel)
+        {
+        case 1:
+            player->PrintInventory();
+            break;
+        case 2:
+            cout << "==========================" << endl;
+            cout << "사용할 아이템 번호 입력 >> ";
+            cin >> itemSel;
+            player->UseInventoryItem(itemSel);
+            break;
+        case 0:
+            return;
+        }
+
+    }
+}
+void ShopMenu(Player* player)
+{
+
+}
+void TownMenu(Player* player)
+{
+    int townSel = 0;
+
+    system("cls");
+    cout << "==========================" << endl;
+    cout << " 마을 메뉴" << endl;
+    cout << "==========================" << endl;
+    cout << " 1. 인벤토리" << endl;
+    cout << " 2. 상점으로" << endl;
+    cout << " 0. 돌아가기" << endl;
+    cout << "==========================" << endl;
+
+    while (true)
+    {
+        cout << "입력 >> ";
+        cin >> townSel;
+        switch (townSel)
+        {
+        case 1:
+            InventoryMenu(player);
+            break;
+        case 2:
+            break;
+        case 0:
+            return;
+        }
+
     }
 }
 

@@ -32,7 +32,7 @@ class Player : public Character
 {
 private:
     UserInfo userInfo;
-    std::vector<Item> userInventory;
+    std::vector<Item*> userInventory;
     std::string typeName;
     int playerType;
     int dmg;
@@ -92,11 +92,18 @@ public:
     // 기능 함수
     void PrintInfo();
     void PrintUserInfo();
+    void PrintInventory();
 
+    void AddItem(std::string _itemName);
     void AddItem(std::string _itemName, int _itemNum);
-    
+    void RemoveItem(int _index);
+    void RemoveItem(std::string _name);
+    void RemoveItem(std::string _name, int _itemNum);
+    int SearchItem(std::string _name);
+    void UseInventoryItem(int _index);
+
     // Get Info
-    std::vector<Item> GetInventory();
+    std::vector<Item*> GetInventory();
     std::string GetItemName(int i);
     std::string GetUserName();
     std::string GetTypeName();

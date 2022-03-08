@@ -6,6 +6,7 @@ class Item
 private:
     std::string itemName;
     int itemNum = 0;
+    int itemPrice;
 
 public:
     // 생성자
@@ -16,7 +17,8 @@ public:
     }
 
     // 기능
-    void useItem();
+    void UseItem();
+    void PrintItem();
 
     // get
     std::string GetItemName();

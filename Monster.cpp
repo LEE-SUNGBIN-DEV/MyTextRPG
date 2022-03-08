@@ -4,9 +4,14 @@
 // --------------------------------- CLASS
 // --------------------------------- MONSTER
 
-// 공격 함수
+// ----------------------공격 함수
 void Monster::Attack(Player* player)
 {
+    std::cout << "==========================" << std::endl;
+    std::cout << this->name << "이(가) "
+        << player->GetName() << "에게 기본 공격!" << std::endl;
+    std::cout << "==========================" << std::endl;
+
     player->SetHp(player->GetHp() - this->GetDmg());
 }
 void Monster::SkillA(Player* player)
@@ -28,7 +33,8 @@ void Monster::SkillC(Player* player)
     player->SetHp(player->GetHp() - (this->GetDmg() * mul));
 }
 
-// 기능 함수
+// ----------------------기능 함수
+// 출력
 void Monster::PrintInfo()
 {
     std::cout << "-------------------------------------" << std::endl;

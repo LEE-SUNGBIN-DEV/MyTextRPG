@@ -1,10 +1,9 @@
 #include "Item.h"
 
-void Item::useItem()
+void Item::UseItem()
 {
     if (this->itemNum > 0)
     {
-        this->itemNum = this->itemNum - 1;
         std::cout << this->itemName << " 아이템을 사용하였습니다." << std::endl;
     }
 
@@ -12,6 +11,14 @@ void Item::useItem()
     {
         std::cout << "ERROR: NOT ENOUGH ITEM" << std::endl;
     }
+}
+
+void Item::PrintItem()
+{
+    std::cout << "==========================" << std::endl;
+    std::cout << "아이템명: " << this->itemName << std::endl;
+    std::cout << "수량: " << this->itemNum << std::endl;
+    std::cout << "==========================" << std::endl;
 }
 
 // get

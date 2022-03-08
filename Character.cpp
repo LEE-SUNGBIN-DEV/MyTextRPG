@@ -53,6 +53,10 @@ void Character::SetName(std::string _name)
 void Character::SetHp(int _hp)
 {
     this->hp = _hp;
+
+    if (this->hp <= 0)
+        Death();
+
     return;
 }
 void Character::SetMp(int _mp)
