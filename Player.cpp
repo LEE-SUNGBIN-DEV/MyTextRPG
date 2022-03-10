@@ -8,7 +8,7 @@
 // ----------------------공격 함수
 void Player::Attack(Monster* monster)
 {
-    std::cout << "[ " << this->name << "이(가) "
+    std::cout << "[ " << this->GetName() << "이(가) "
         << monster->GetName() << "에게 기본 공격! ]" << std::endl;
     monster->SetHp(monster->GetHp() - this->GetDmg());
 }
@@ -16,7 +16,7 @@ void Player::SkillA(Monster* monster)
 {
     int mul = 2;
 
-    std::cout << "[ " << this->name << "이(가) "
+    std::cout << "[ " << this->GetName() << "이(가) "
         << monster->GetName() << "에게 스킬A 사용! ]" << std::endl;
 
     monster->SetHp(monster->GetHp() - (this->GetDmg()*mul));
@@ -25,7 +25,7 @@ void Player::SkillB(Monster* monster)
 {
     int mul = 3;
 
-    std::cout << "[ " << this->name << "이(가) "
+    std::cout << "[ " << this->GetName() << "이(가) "
         << monster->GetName() << "에게 스킬B 사용! ]" << std::endl;
 
     monster->SetHp(monster->GetHp() - (this->GetDmg() * mul));
@@ -34,7 +34,7 @@ void Player::SkillC(Monster* monster)
 {
     int mul = 4;
 
-    std::cout << "[ " << this->name << "이(가) "
+    std::cout << "[ " << this->GetName() << "이(가) "
         << monster->GetName() << "에게 스킬C 사용!] " << std::endl;
 
     monster->SetHp(monster->GetHp() - (this->GetDmg() * mul));
@@ -44,19 +44,12 @@ void Player::SkillC(Monster* monster)
 // 정보 출력
 void Player::PrintInfo()
 {
-    std::cout << "====================================" << std::endl;
-    std::cout << "   닉네임: " << this->GetName() << std::endl;
-    std::cout << "   직업: " << this->GetTypeName() << std::endl;
-    std::cout << "   HP: " << this->GetHp() << std::endl;
-    std::cout << "   MP: " << this->GetMp() << std::endl;
-    std::cout << "   공격력: " << this->GetDmg() << std::endl;
-    std::cout << "   이동속도: " << this->GetMoveSpeed() << std::endl;
-    if (this->GetAlive() == true)
-        std::cout << "   상태: 생존" << std::endl;
-    else if (this->GetAlive() == false)
-        std::cout << "   상태: 사망" << std::endl;
-    std::cout << "   exp: " << this->GetExp() << std::endl;
-    std::cout << "====================================" << std::endl;
+    Character::PrintInfo();
+    std::cout << "[ 직업: " << this->GetTypeName() << " ]" << std::endl;
+    std::cout << "[ 공격력: " << this->GetDmg() << " ]" << std::endl;
+    std::cout << "[ 방어력: " << this->GetDef() << " ]" << std::endl;
+    std::cout << "[ 소지금: " << this->GetMoney() << std::endl;
+    std::cout << "[ 경험치: " << this->GetExp() << " ]" << std::endl;
 
     return;
 }
@@ -69,6 +62,10 @@ void Player::PrintUserInfo()
 }
 void Player::PrintInventory()
 {
+    if (this->userInventory.size() == 0)
+    {
+        std::cout << "[ 인벤토리가 비었습니다. ]" << std::endl;
+    }
     for (int i = 0; i < this->userInventory.size(); i++)
     {
         this->userInventory[i]->PrintItem(i);
@@ -213,6 +210,7 @@ int Player::GetUserAge() { return this->userInfo.userAge; }
 int Player::GetItemNum(int i) { return this->userInventory[i]->GetItemNum(); }
 int Player::GetDef() { return this->def; }
 int Player::GetPlayerType() { return this->playerType; }
+int Player::GetMoney() { return this->money; }
 
 // Set Info
 void Player::SetUserInfo(std::string _name, int _age)
@@ -238,5 +236,11 @@ void Player::SetDef(int _def)
 void Player::SetPlayerType(int _sel)
 {
     this->playerType = _sel;
+    return;
+}
+
+void Player::SetMoney(int _money)
+{
+    this->money = _money;
     return;
 }

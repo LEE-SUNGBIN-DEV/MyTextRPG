@@ -5,7 +5,7 @@
 // --------------------------------- CHARACTER
 class Character
 {
-protected:
+private:
     std::string name;
     int hp;
     int mp;
@@ -22,13 +22,13 @@ public:
         this->moveSpeed = 1.0f;
         this->alive = true;
     }
-    Character(std::string _name)
+    Character(std::string _name) : Character()
     {
-        this->name = "_name";
-        this->hp = 100;
-        this->mp = 50;
-        this->moveSpeed = 1.0f;
-        this->alive = true;
+        this->name = "_name"; 
+    }
+
+    ~Character()
+    {
     }
 
     // 기능 함수
@@ -51,4 +51,5 @@ public:
     virtual void SetHp(int _hp);
     virtual void SetMp(int _hp);
     virtual void SetMoveSpeed(float _moveSpeed);
+    virtual void SetAlive(bool _alive);
 };

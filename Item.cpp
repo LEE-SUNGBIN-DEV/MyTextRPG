@@ -4,7 +4,7 @@ void Item::UseItem()
 {
     if (this->itemNum > 0)
     {
-        std::cout << this->itemName << " 아이템을 사용하였습니다." << std::endl;
+        std::cout << this->GetItemName() << " 아이템을 사용하였습니다." << std::endl;
     }
 
     else
@@ -15,19 +15,19 @@ void Item::UseItem()
 
 void Item::PrintItem()
 {
-    std::cout << "==========================" << std::endl;
-    std::cout << "[" << this->itemName << "] "
-        << "[" << this->itemNum << "]" << std::endl;
-    std::cout << "==========================" << std::endl;
+    std::cout << "--------------------------------" << std::endl;
+    std::cout << "[" << this->GetItemName() << "] "
+        << "[" << this->GetItemNum() << "]" << std::endl;
+    std::cout << "--------------------------------" << std::endl;
 }
 
 void Item::PrintItem(int _index)
 {
-    std::cout << "==========================" << std::endl;
+    std::cout << "--------------------------------" << std::endl;
     std::cout << "[슬롯 번호: " << _index << "] "
-        << "[" << this->itemName << "] "
-        << "[" << this->itemNum << "]" << std::endl;
-    std::cout << "==========================" << std::endl;
+        << "[" << this->GetItemName() << "] "
+        << "[" << this->GetItemNum() << "]" << std::endl;
+    std::cout << "--------------------------------" << std::endl;
 }
 
 // get

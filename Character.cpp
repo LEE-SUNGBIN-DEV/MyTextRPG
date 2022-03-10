@@ -5,14 +5,14 @@
 // 기능 함수
 void Character::Rebirth()
 {
-    this->alive = true;
-    std::cout << this->name << "이(가) 부활하였습니다." << std::endl;
+    this->SetAlive(true);
+    std::cout << "[ " << this->GetName() << "이(가) 부활하였습니다. ]" << std::endl;
 }
 
 void Character::Death()
 {
-    this->alive = false;
-    std::cout << this->name << "이(가) 사망하였습니다." << std::endl;
+    this->SetAlive(false);
+    std::cout << "[ " << this->GetName() << "이(가) 사망하였습니다. ]" << std::endl;
 }
 
 void Character::FreeMemory()
@@ -23,16 +23,16 @@ void Character::FreeMemory()
 // 캐릭터 정보 출력
 void Character::PrintInfo()
 {
-    std::cout << "-------------------------------------" << std::endl;
-    std::cout << "   Name: " << this->name << std::endl;
-    std::cout << "   HP: " << this->hp << std::endl;
-    std::cout << "   MP: " << this->mp << std::endl;
-    std::cout << "   이동속도: " << this->moveSpeed << std::endl;
-    if (this->alive == true)
-        std::cout << "   상태: 생존" << std::endl;
-    else if (this->alive == false)
-        std::cout << "   상태: 사망" << std::endl;
-    std::cout << "-------------------------------------" << std::endl;
+    std::cout << "====================================" << std::endl;
+    std::cout << "[ " << this->GetName() << "의 정보 ]" << std::endl;
+    std::cout << "====================================" << std::endl;
+    std::cout << "[ 닉네임: " << this->GetName() << " ]" << std::endl;
+    std::cout << "[ HP: " << this->GetHp() << " ]" << std::endl;
+    std::cout << "[ MP: " << this->GetMp() << " ]" << std::endl;
+    if (this->GetAlive() == true)
+        std::cout << "[ 상태: 생존 ]" << std::endl;
+    else if (this->GetAlive() == false)
+        std::cout << "[ 상태: 사망 ]" << std::endl;
 
     return;
 }
@@ -67,4 +67,11 @@ void Character::SetMp(int _mp)
 void Character::SetMoveSpeed(float _moveSpeed)
 {
     this->moveSpeed = _moveSpeed;
+    return;
+}
+
+void Character::SetAlive(bool _alive)
+{
+    this->alive = _alive;
+    return;
 }

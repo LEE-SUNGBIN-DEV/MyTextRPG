@@ -5,15 +5,34 @@ class Item
 {
 private:
     std::string itemName;
-    int itemNum = 0;
-    int itemPrice = 0;
+    int itemNum;
+    int itemPrice;
 
 public:
     // 생성자
+    Item()
+    {
+        this->itemName = "NONE";
+        this->itemNum = 0;
+        this->itemPrice = 0;
+    }
+
     Item(std::string _itemName, int _itemNum)
     {
         this->itemName = _itemName;
         this->itemNum = _itemNum;
+        this->itemPrice = 0;
+    }
+
+    Item(std::string _itemName, int _itemNum, int _itemPrice)
+    {
+        this->itemName = _itemName;
+        this->itemNum = _itemNum;
+        this->itemPrice = _itemPrice;
+    }
+    ~Item()
+    {
+        std::cout << "[ 아이템이 사라졌습니다. ]" << std::endl;
     }
 
     // 기능

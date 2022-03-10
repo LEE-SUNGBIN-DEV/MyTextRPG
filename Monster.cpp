@@ -7,7 +7,7 @@
 // ----------------------공격 함수
 void Monster::Attack(Player* player)
 {
-    std::cout << "[ " << this->name << "이(가) "
+    std::cout << "[ " << this->GetName() << "이(가) "
         << player->GetName() << "에게 기본 공격! ]" << std::endl;
 
     player->SetHp(player->GetHp() - this->GetDmg());
@@ -35,20 +35,18 @@ void Monster::SkillC(Player* player)
 // 출력
 void Monster::PrintInfo()
 {
-    std::cout << "-------------------------------------" << std::endl;
-    std::cout << "   Name: " << this->GetName() << std::endl;
-    std::cout << "   HP: " << this->GetHp() << std::endl;
-    std::cout << "   MP: " << this->GetMp() << std::endl;
-    std::cout << "   DMG: " << this->GetDmg() << std::endl;
-    std::cout << "   이동속도: " << this->GetMoveSpeed() << std::endl;
-    if (this->GetAlive() == true)
-        std::cout << "   상태: 생존" << std::endl;
-    else if (this->GetAlive() == false)
-        std::cout << "   상태: 사망" << std::endl;
-    std::cout << "   속성: " << this->GetElement() << std::endl;
-    std::cout << "-------------------------------------" << std::endl;
+    Character::PrintInfo();
+    std::cout << "[ 속성: " << this->GetElement() << " ]" << std::endl;
+    std::cout << "[ 공격력: " << this->GetDmg() << " ]" << std::endl;
 
     return;
+}
+
+void Monster::Death(Player* player)
+{
+    this->SetAlive(false);
+    player->SetMoney(player->GetMoney());
+    std::cout << "[ " << this->GetName() << "이(가) 사망하였습니다. ]" << std::endl;
 }
 
 // Get Info

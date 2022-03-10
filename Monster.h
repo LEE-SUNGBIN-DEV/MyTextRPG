@@ -38,11 +38,13 @@ public:
         this->element = "NONE";
         this->dmg = 1;
     }
-    Monster(std::string _name)
+    Monster(std::string _name) : Monster()
     {
         this->SetName(_name);
-        this->element = "NONE";
-        this->dmg = 1;
+    }
+
+    ~Monster()
+    {
     }
 
     // 공격 함수
@@ -53,6 +55,7 @@ public:
 
     // 기능 함수
     void PrintInfo();
+    void Death(Player* player);
 
     // Get Info
     std::string GetElement();

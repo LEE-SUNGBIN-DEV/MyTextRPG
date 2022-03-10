@@ -38,6 +38,7 @@ private:
     int dmg;
     int def;
     int exp;
+    int money;
 
 public:
     // 생성자
@@ -47,14 +48,11 @@ public:
         this->dmg = 0;
         this->def = 0;
         this->exp = 0;
+        this->money = 50;
     }
 
-    Player(int sel)
+    Player(int sel) : Player()
     {
-        this->playerType = ENUM_PLAYER_NONE;
-        this->dmg = 0;
-        this->def = 0;
-        this->exp = 0;
 
         switch (sel)
         {
@@ -66,7 +64,6 @@ public:
             this->playerType = ENUM_PLAYER_KNIGHT;
             this->dmg = 5;
             this->def = 10;
-            this->exp = 0;
             break;
         }
         case 2:
@@ -77,10 +74,14 @@ public:
             this->playerType = ENUM_PLAYER_MAGICIAN;
             this->dmg = 10;
             this->def = 5;
-            this->exp = 0;
             break;
         }
         }
+    }
+
+    ~Player()
+    {
+        std::cout << "[ 플레이어가 사라졌습니다. ]" << std::endl;
     }
 
     // 공격 함수
@@ -114,6 +115,7 @@ public:
     int GetItemNum(int i);
     int GetDef();
     int GetPlayerType();
+    int GetMoney();
 
     // Set Info
     void SetUserInfo(std::string _name, int _age);
@@ -121,4 +123,5 @@ public:
     void SetExp(int _exp);
     void SetDef(int _def);
     void SetPlayerType(int _sel);
+    void SetMoney(int _money);
 };
