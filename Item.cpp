@@ -1,8 +1,24 @@
 #include "Item.h"
+#include "Player.h"
 
+// --------------------------------- CLASS
+// --------------------------------- ITEM
 void Item::UseItem()
 {
-    if (this->itemNum > 0)
+    if (this->GetItemNum() > 0)
+    {
+        std::cout << this->GetItemName() << " 아이템을 사용하였습니다." << std::endl;
+    }
+
+    else
+    {
+        std::cout << "ERROR: NOT ENOUGH ITEM" << std::endl;
+    }
+}
+
+void Item::UseItem(Player* player)
+{
+    if (this->GetItemNum() > 0)
     {
         std::cout << this->GetItemName() << " 아이템을 사용하였습니다." << std::endl;
     }

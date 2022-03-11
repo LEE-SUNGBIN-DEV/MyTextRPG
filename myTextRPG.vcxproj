@@ -140,18 +140,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="HpPotion.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Knight.cpp" />
+    <ClCompile Include="LUX.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MpPotion.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="Wizard.cpp" />
+    <ClCompile Include="Yasuo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
+    <ClInclude Include="HpPotion.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="Knight.h" />
+    <ClInclude Include="LUX.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="MpPotion.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shop.h" />
+    <ClInclude Include="Wizard.h" />
+    <ClInclude Include="Yasuo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

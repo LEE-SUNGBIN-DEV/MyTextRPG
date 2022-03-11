@@ -6,38 +6,101 @@
 // --------------------------------- PLAYER
 
 // ----------------------공격 함수
-void Player::Attack(Monster* monster)
+bool Player::Attack(Monster* monster)
 {
+    int dmg;
+
+    dmg = this->GetDmg() - monster->GetDef();
+    if (dmg < 0) dmg = 0;
+
     std::cout << "[ " << this->GetName() << "이(가) "
         << monster->GetName() << "에게 기본 공격! ]" << std::endl;
-    monster->SetHp(monster->GetHp() - this->GetDmg());
+
+    monster->HpShieldManager(dmg);
+    this->TurnManager();
+
+    return true;
 }
-void Player::SkillA(Monster* monster)
+bool Player::SkillA(Monster* monster)
 {
+    int dmg;
     int mul = 2;
+    int needMana = 20;
 
-    std::cout << "[ " << this->GetName() << "이(가) "
-        << monster->GetName() << "에게 스킬A 사용! ]" << std::endl;
+    if (this->GetMp() < needMana)
+    {
+        std::cout << "[ 마나가 부족합니다. ]" << std::endl;
+        return false;
+    }
+    else
+    {
+        dmg = mul * this->GetDmg() - monster->GetDef();
+        if (dmg < 0) dmg = 0;
 
-    monster->SetHp(monster->GetHp() - (this->GetDmg()*mul));
+        std::cout << "[ " << this->GetName() << "이(가) "
+            << monster->GetName() << "에게 스킬A 사용! ]" << std::endl;
+
+        this->SetMp(this->GetMp() - needMana);
+        monster->HpShieldManager(dmg);
+        this->TurnManager();
+
+        return true;
+    }
+    
 }
-void Player::SkillB(Monster* monster)
+bool Player::SkillB(Monster* monster)
 {
+    int dmg;
     int mul = 3;
+    int needMana = 30;
 
-    std::cout << "[ " << this->GetName() << "이(가) "
-        << monster->GetName() << "에게 스킬B 사용! ]" << std::endl;
+    if (this->GetMp() < needMana)
+    {
+        std::cout << "[ 마나가 부족합니다. ]" << std::endl;
+        return false;
+    }
 
-    monster->SetHp(monster->GetHp() - (this->GetDmg() * mul));
+    else
+    {
+        dmg = mul * this->GetDmg() - monster->GetDef();
+        if (dmg < 0) dmg = 0;
+
+        std::cout << "[ " << this->GetName() << "이(가) "
+            << monster->GetName() << "에게 스킬B 사용! ]" << std::endl;
+
+        monster->HpShieldManager(dmg);
+        this->SetMp(this->GetMp() - needMana);
+        this->TurnManager();
+
+        return true;
+    }
 }
-void Player::SkillC(Monster* monster)
+bool Player::SkillC(Monster* monster)
 {
+    int dmg;
     int mul = 4;
+    int needMana = 50;
 
-    std::cout << "[ " << this->GetName() << "이(가) "
-        << monster->GetName() << "에게 스킬C 사용!] " << std::endl;
+    if (this->GetMp() < needMana)
+    {
+        std::cout << "[ 마나가 부족합니다. ]" << std::endl;
+        return false;
+    }
 
-    monster->SetHp(monster->GetHp() - (this->GetDmg() * mul));
+    else
+    {
+        dmg = mul * this->GetDmg() - monster->GetDef();
+        if (dmg < 0) dmg = 0;
+
+        std::cout << "[ " << this->GetName() << "이(가) "
+            << monster->GetName() << "에게 스킬C 사용!] " << std::endl;
+
+        monster->HpShieldManager(dmg);
+        this->SetMp(this->GetMp() - needMana);
+        this->TurnManager();
+
+        return true;
+    }
 }
 
 // ----------------------기능 함수
@@ -46,9 +109,7 @@ void Player::PrintInfo()
 {
     Character::PrintInfo();
     std::cout << "[ 직업: " << this->GetTypeName() << " ]" << std::endl;
-    std::cout << "[ 공격력: " << this->GetDmg() << " ]" << std::endl;
-    std::cout << "[ 방어력: " << this->GetDef() << " ]" << std::endl;
-    std::cout << "[ 소지금: " << this->GetMoney() << std::endl;
+    std::cout << "[ 소지금: " << this->GetMoney() << " ]" << std::endl;
     std::cout << "[ 경험치: " << this->GetExp() << " ]" << std::endl;
 
     return;
@@ -105,6 +166,23 @@ void Player::AddItem(std::string _itemName, int _itemNum)
 
     // 존재하지 않을 경우 새로 추가
     this->userInventory.push_back(new Item(_itemName, _itemNum));
+    return;
+}
+void Player::AddItem(Item* _item)
+{
+    for (int i = 0; i < userInventory.size(); i++)
+    {
+        // 인벤에 같은 아이템이 존재할 경우
+        if (userInventory[i]->GetItemName() == _item->GetItemName())
+        {
+            // 수량만 추가
+            userInventory[i]->SetItemNum(userInventory[i]->GetItemNum() + 1);
+            delete(_item);
+
+            return;
+        }
+    }
+    this->userInventory.push_back(_item);
     return;
 }
 
@@ -193,7 +271,7 @@ void Player::UseInventoryItem(int _index)
 {
     if (this->userInventory[_index]->GetItemNum() > 0)
     {
-        this->userInventory[_index]->UseItem();
+        this->userInventory[_index]->UseItem(this);
         this->RemoveItem(_index);
     }
 }
@@ -204,11 +282,9 @@ std::vector<Item*> Player::GetInventory() { return this->userInventory; }
 std::string Player::GetItemName(int i) { return this->userInventory[i]->GetItemName(); }
 std::string Player::GetTypeName() { return this->typeName; }
 std::string Player::GetUserName() { return this->userInfo.userName; }
-int Player::GetDmg() { return this->dmg; }
 int Player::GetExp() { return this->exp; }
 int Player::GetUserAge() { return this->userInfo.userAge; }
 int Player::GetItemNum(int i) { return this->userInventory[i]->GetItemNum(); }
-int Player::GetDef() { return this->def; }
 int Player::GetPlayerType() { return this->playerType; }
 int Player::GetMoney() { return this->money; }
 
@@ -218,19 +294,9 @@ void Player::SetUserInfo(std::string _name, int _age)
     this->userInfo.userName = _name;
     this->userInfo.userAge = _age;
 }
-void Player::SetDmg(int _dmg)
-{
-    this->dmg = _dmg;
-    return;
-}
 void Player::SetExp(int _exp)
 {
     this->exp = _exp;
-    return;
-}
-void Player::SetDef(int _def)
-{
-    this->def = _def;
     return;
 }
 void Player::SetPlayerType(int _sel)
@@ -238,9 +304,13 @@ void Player::SetPlayerType(int _sel)
     this->playerType = _sel;
     return;
 }
-
 void Player::SetMoney(int _money)
 {
     this->money = _money;
+    return;
+}
+void Player::SetTypeName(std::string _typeName)
+{
+    this->typeName = _typeName;
     return;
 }

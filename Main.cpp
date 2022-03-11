@@ -1,18 +1,48 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <Windows.h>
+#include <Windows.h> // system()
+
 #include "Character.h"
 #include "Monster.h"
+#include "LUX.h"
+#include "Yasuo.h"
+
 #include "Player.h"
+#include "Knight.h"
+#include "Wizard.h"
+
 #include "Shop.h"
+#include "HpPotion.h"
+#include "MpPotion.h"
 
 using namespace std;
 
-string gameTitle = "TEXT RPG";
+string gameTitle = "협곡의 쓰레기";
 
 // global
 Shop* shop = new Shop();
+
+// Input Control
+void GetCombatBuffer()
+{
+    cout << endl;
+    cout << "▷ [ 혼내주자 : Enter ]" << endl;
+    cin.get();
+}
+void GetOneBuffer()
+{
+    cout << endl;
+    cout << "▷ [ 확인: Enter ]" << endl;
+    cin.get();
+}
+void GetTwoBuffer()
+{
+    cout << endl;
+    cout << "▷ [ 확인: Enter ]" << endl;
+    cin.get();
+    cin.get();
+}
 
 // init
 int MainTitle()
@@ -22,25 +52,23 @@ int MainTitle()
     while (true)
     {
         std::system("cls");
-        cout << "==========================" << endl;
+        cout << "============================" << endl;
         cout << "　[" << gameTitle << " ]" << endl;
-        cout << "==========================" << endl;
+        cout << "============================" << endl;
         cout << "[ 1. 게임 시작 ]" << endl;
         cout << "[ 2. 게임 종료 ]" << endl;
         cout << "선택 >> ";
 
         cin >> userSel;
 
-        try
+        if (userSel == 1 || userSel == 2)
         {
-            if (userSel == 1 || userSel == 2)
-            {
-                return userSel;
-            }
+            return userSel;
         }
-        catch (char ch)
+
+        else
         {
-            cout << "ERROR: WRONG INPUT: MainTitle() " << ch << endl;
+            cout << "ERROR: WRONG INPUT: MainTitle()" << endl;
             cout << "[ 확인: Enter ]" << endl;
             cin.get();
             cin.get();
@@ -54,30 +82,26 @@ void CreatePlayer(vector<Player*>& playerList, Player*& player)
     while (true)
     {
         std::system("cls");
-        cout << "==========================" << endl;
+        cout << "====================================" << endl;
         cout << "[ 직업을 선택하세요. ]" << endl;
         cout << "[ 1. 전사 ]" << endl;
         cout << "[ 2. 마법사 ]" << endl;
-        cout << "==========================" << endl;
+        cout << "====================================" << endl;
         cout << "선택 >> ";
 
         cin >> userSel;
 
-        if (userSel == ENUM_PLAYER_KNIGHT
-            || userSel == ENUM_PLAYER_MAGICIAN)
+        switch (userSel)
         {
-            player = new Player(userSel);
+        case ENUM_PLAYER_KNIGHT:
+            player = new Knight();
             playerList.push_back(player);
-
             return;
-        }
 
-        else
-        {
-            cout << "ERROR: WRONG INPUT: CreatePlayer()" << endl;
-            cout << "[ 확인: Enter ]" << endl;
-            cin.get();
-            cin.get();
+        case ENUM_PLAYER_WIZARD:
+            player = new Wizard();
+            playerList.push_back(player);
+            return;
         }
     }
 }
@@ -87,17 +111,17 @@ void SetUserInfo(vector<Player*>& playerList, int playerIndex)
     int userAgeInput;
 
     std::system("cls");
-    cout << "==========================" << endl;
+    cout << "====================================" << endl;
     cout << "[ 성함을 입력하세요. ]" << endl;
-    cout << "==========================" << endl;
+    cout << "====================================" << endl;
 
     cout << "입력 >> ";
     cin >> userNameInput;
     
     std::system("cls");
-    cout << "==========================" << endl;
+    cout << "====================================" << endl;
     cout << "[ 나이를 입력하세요. ]" << endl;
-    cout << "==========================" << endl;
+    cout << "====================================" << endl;
 
     cout << "입력 >> ";
     cin >> userAgeInput;
@@ -105,11 +129,10 @@ void SetUserInfo(vector<Player*>& playerList, int playerIndex)
     playerList[playerIndex]->SetUserInfo(userNameInput, userAgeInput);
 
     std::system("cls");
+    cout << "[ 유저 정보 ]" << endl;
     playerList[playerIndex]->PrintUserInfo();
 
-    cout << "[ 확인: Enter ]" << endl;
-    cin.get();
-    cin.get();
+    GetTwoBuffer();
 
     return;
 }
@@ -118,26 +141,26 @@ void SetCharInfo(vector<Player*>& playerList, int playerIndex)
     string userInput;
 
     std::system("cls");
-    cout << "==========================" << endl;
+    cout << "====================================" << endl;
     cout << "[ 닉네임을 입력하세요. ]" << endl;
-    cout << "==========================" << endl;
+    cout << "====================================" << endl;
 
     cout << "입력 >> ";
     cin >> userInput;
     playerList[playerIndex]->SetName(userInput);
 
     std::system("cls");
-    cout << "==========================" << endl;
+    cout << "====================================" << endl;
     cout << "[ 캐릭터 세팅 완료 ]" << endl;
-    cout << "==========================" << endl;
+    cout << "====================================" << endl;
     playerList[playerIndex]->PrintInfo();
-
+    cout << "====================================" << endl;
     cout << "[ 회복 물약 1개가 지급되었습니다. ]" << endl;
-    playerList[playerIndex]->AddItem("회복 물약");
+    cout << "[ 마나 물약 1개가 지급되었습니다. ]" << endl;
+    playerList[playerIndex]->AddItem(new HpPotion(1));
+    playerList[playerIndex]->AddItem(new MpPotion(1));
 
-    cout << "[ 확인: Enter ]" << endl;
-    cin.get();
-    cin.get();
+    GetTwoBuffer();
 
     return;
 }
@@ -169,6 +192,11 @@ void CreateMonster(vector<Monster*>& monsterList, Monster*& monster)
         }
     }
 }
+void InitShop()
+{
+    shop->GetSellList().push_back(new HpPotion(999));
+    shop->GetSellList().push_back(new MpPotion(999));
+}
 
 // Menu
 void InventoryUseMenu(Player* player)
@@ -199,9 +227,7 @@ void InventoryUseMenu(Player* player)
         case 7:
         case 8:
             player->UseInventoryItem(sel);
-            cout << "[ 확인: Enter ]" << endl;
-            cin.get();
-            cin.get();
+            GetTwoBuffer();
             break;
         case 9:
             std::system("cls");
@@ -232,9 +258,7 @@ void InventoryMenu(Player* player)
         {
         case 1:
             player->PrintInventory();
-            cout << "[ 확인: Enter ]" << endl;
-            cin.get();
-            cin.get();
+            GetTwoBuffer();
             break;
         case 2:
             InventoryUseMenu(player);
@@ -273,9 +297,7 @@ void ShopBuyMenu(Player* player)
         case 7:
         case 8:
             shop->BuyItem(player, sel);
-            cout << "[ 확인: Enter ]" << endl;
-            cin.get();
-            cin.get();
+            GetTwoBuffer();
             break;
         case 9:
             std::system("cls"); return;
@@ -350,17 +372,26 @@ void CombatMenu(Player* player, Monster* monster)
 
     while (true)
     {
+    tryAgain:
         std::system("cls");
-        cout << "==========================" << endl;
+        cout << "===============================" << endl;
         cout << "[ 전투 ]" << endl;
-        cout << "==========================" << endl;
+        cout << "===============================" << endl;
+        cout << "[ " << player->GetName() << "의 스테이터스 ]" << endl;
+        cout << "[ HP: " << player->GetHp() << " / " << "MP: " << player->GetMp() << " / " << "보호막: " << player->GetShield() << " ]" << endl;
+        cout << "[ 공격력: " << player->GetDmg() << " / " << "방어력: " << player->GetDef() << " ]" << endl;
+        cout << "===============================" << endl;
+        cout << "[ " << monster->GetName() << "의 스테이터스 ]" << endl;
+        cout << "[ HP: " << monster->GetHp() << " / " << "보호막: " << monster->GetShield() << " ]" << endl;
+        cout << "[ 공격력: " << monster->GetDmg() << " / " << "방어력: " << monster->GetDef() << " ]" << endl;
+        cout << "===============================" << endl;
         cout << "[ 1. 일반 공격 ]" << endl;
         cout << "[ 2. 스킬 1 ]" << endl;
         cout << "[ 3. 스킬 2 ]" << endl;
         cout << "[ 4. 스킬 3 ]" << endl;
         cout << "[ 0. 마을로 ]" << endl;
-        cout << "==========================" << endl;
-
+        cout << "===============================" << endl;
+        
         cout << "입력 >> ";
         cin >> sel;
 
@@ -370,13 +401,25 @@ void CombatMenu(Player* player, Monster* monster)
             player->Attack(monster);
             break;
         case 2:
-            player->SkillA(monster);
+            if (!player->SkillA(monster))
+            {
+                GetTwoBuffer();
+                goto tryAgain;
+            }
             break;
         case 3:
-            player->SkillB(monster);
+            if (!player->SkillB(monster))
+            {
+                GetTwoBuffer();
+                goto tryAgain;
+            }
             break;
         case 4:
-            player->SkillC(monster);
+            if (!player->SkillC(monster))
+            {
+                GetTwoBuffer();
+                goto tryAgain;
+            }
             break;
         case 0:
             TownMenu(player);
@@ -388,57 +431,72 @@ void CombatMenu(Player* player, Monster* monster)
             if (!monster->GetAlive())
             {
                 cout << "[ 전투 종료 : 승리]" << endl;
-                cout << "[ 확인: Enter ]" << endl;
-                cin.get();
-                cin.get();
+                GetTwoBuffer();
                 return;
             }
-            cout << "[ " << monster->GetName() << " HP : " << monster->GetHp() << " ]" << endl;
 
-            monster->Attack(player);
+            monster->RandomAttack(player);
             if (!player->GetAlive())
             {
                 cout << "[ 전투 종료 : 패배] " << endl;
-                cout << "[ 확인: Enter ]" << endl;
-                cin.get();
-                cin.get();
+                GetTwoBuffer();
                 return;
             }
-            cout << "[ " << player->GetName() << " HP : " << player->GetHp() << " ]" << endl;
 
-            cout << "[ 확인: Enter ]" << endl;
-            cin.get();
-            cin.get();
+            GetTwoBuffer();
         }
     }
 }
 
 // Scene
+void GameOver()
+{
+    system("cls");
+    std::cout << "==========================" << std::endl;
+    std::cout << " [ Game Over ] " << endl;
+    std::cout << "==========================" << std::endl;
+    cout << "[ 협곡을 지켜낼 수 없었다. ]" << endl;
+    GetOneBuffer();
+
+    return;
+}
+void Prologue()
+{
+    system("cls");
+    std::cout << "==========================" << std::endl;
+    std::cout << " [ Prologue ] " << endl;
+    std::cout << "==========================" << std::endl;
+    cout << "[ 소환사의 협곡에는 수많은 쓰레기가 존재한다. ]" << endl;
+    cout << "[ 당신은 지금부터 그 쓰레기들을 청소해야 한다. ]" << endl;
+    GetOneBuffer();
+}
 void Chapter1(Player* player, int* _progress)
 { 
     Monster* monster = NULL;
 
     while (*_progress == 1)
     {
-        monster = new Monster("킹 슬라임");
+        monster = new LUX();
         system("cls");
         std::cout << "==========================" << std::endl;
         std::cout << "Chapter " << *_progress << std::endl;
-        std::cout << "[킹 슬라임 사냥]" << std::endl;
+        std::cout << "[서폿 럭스]" << std::endl;
         std::cout << "==========================" << std::endl;
-        std::cout << "거대한 슬라임이 쳐들어왔다 ㅜㅜ" << std::endl;
+        std::cout << " \"원딜님 CS가 맛있네용ㅎ\" " << std::endl;
 
-        cin.get();
+        GetCombatBuffer();
         CombatMenu(player, monster);
 
         if (monster->GetAlive() == false
             && player->GetAlive() == true)
         {
             delete(monster);
+            system("cls");
             std::cout << "==========================" << std::endl;
             std::cout << "Chapter " << *_progress << std::endl;
-            std::cout << "[킹 슬라임 사냥] 클리어" << std::endl;
+            std::cout << "[서폿 럭스] 클리어" << std::endl;
             std::cout << "==========================" << std::endl;
+            std::cout << " \"ㅇㄷㅊㅇ\" " << endl;
             
             *_progress = *_progress + 1;
             cin.get();
@@ -448,8 +506,7 @@ void Chapter1(Player* player, int* _progress)
         else
         {
             delete(monster);
-            cout << "Game Over" << endl;
-            cin.get();
+            GameOver();
             return;
         }
     }
@@ -465,7 +522,22 @@ void Chapter1(Player* player, int* _progress)
 void Chapter2(Player* player, int* _progress)
 {
 }
+void Chapter3(Player* player, int* _progress)
+{
+}
+void Epilogue()
+{
+    system("cls");
+    std::cout << "==========================" << std::endl;
+    std::cout << " [ Epilogue ] " << endl;
+    std::cout << "==========================" << std::endl;
+    cout << "[ 당신의 끈질긴 노력덕에 ]" << endl;
+    cout << "[ 소환사의 협곡에 평화가 찾아왔다. ]" << endl;
 
+    GetTwoBuffer();
+
+    return;
+}
 //
 int FindNicknameIndex(vector<Player*> player, string nick);
 void PrintSearchPlayer(vector<Player*> player, int index);
@@ -489,14 +561,20 @@ int main()
         CreatePlayer(playerList, player);
         SetCharInfo(playerList, 0);
         SetUserInfo(playerList, 0);
+        InitShop();
 
         // MainStream
+        Prologue();
         Chapter1(playerList[0], progress);
         Chapter2(playerList[0], progress);
+        Chapter3(playerList[0], progress);
+        Epilogue();
 
     case 2:
         return 0;
     }
+
+    delete(shop);
     
     return 0;
 }

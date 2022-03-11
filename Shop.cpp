@@ -1,7 +1,8 @@
 #include "Shop.h"
 #include "Item.h"
 #include "Player.h"
-
+// --------------------------------- CLASS
+// --------------------------------- SHOP
 void Shop::PrintShopList()
 {
 	for (int i = 0; i < this->sellList.size(); i++)

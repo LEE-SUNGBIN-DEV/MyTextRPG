@@ -5,30 +5,132 @@
 // --------------------------------- MONSTER
 
 // ----------------------공격 함수
-void Monster::Attack(Player* player)
+void Monster::RandomAttack(Player* player)
 {
+    int randNum;
+    std::random_device rd;
+
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dis(0, 99);
+
+    randNum = dis(gen);
+
+    if (randNum > 90)
+    {
+        this->SkillC(player);
+    }
+    else if (randNum > 75 && randNum <= 90)
+    {
+        this->SkillB(player);
+    }
+    else if (randNum > 60 && randNum <= 75)
+    {
+        this->SkillA(player);
+    }
+    else
+    {
+        this->Attack(player);
+    }
+}
+bool Monster::Attack(Player* player)
+{
+    int dmg;
+
+    dmg = this->GetDmg() - player->GetDef();
+
+    if (dmg < 0) dmg = 0;
+
     std::cout << "[ " << this->GetName() << "이(가) "
         << player->GetName() << "에게 기본 공격! ]" << std::endl;
 
-    player->SetHp(player->GetHp() - this->GetDmg());
+    player->HpShieldManager(dmg);
+    this->TurnManager();
+
+    return true;
 }
-void Monster::SkillA(Player* player)
+bool Monster::SkillA(Player* player)
 {
+    int dmg;
     int mul = 2;
+    int needMana = 20;
 
-    player->SetHp(player->GetHp() - (this->GetDmg() * mul));
+    if (this->GetMp() < needMana)
+    {
+        std::cout << "[ 마나가 부족합니다. ]" << std::endl;
+        return false;
+    }
+
+    else
+    {
+        dmg = mul * this->GetDmg() - player->GetDef();
+
+        if (dmg < 0) dmg = 0;
+
+        std::cout << "[ " << this->GetName() << "이(가) "
+            << player->GetName() << "에게 스킬A를 사용! ]" << std::endl;
+
+        this->SetMp(this->GetMp() - needMana);
+        player->HpShieldManager(dmg);
+        this->TurnManager();
+
+        return true;
+    }
 }
-void Monster::SkillB(Player* player)
+bool Monster::SkillB(Player* player)
 {
+    int dmg;
     int mul = 3;
+    int needMana = 30;
 
-    player->SetHp(player->GetHp() - (this->GetDmg() * mul));
+    if (this->GetMp() < needMana)
+    {
+        std::cout << "[ 마나가 부족합니다. ]" << std::endl;
+        return false;
+    }
+
+    else
+    {
+        dmg = mul * this->GetDmg() - player->GetDef();
+
+        if (dmg < 0) dmg = 0;
+
+        std::cout << "[ " << this->GetName() << "이(가) "
+            << player->GetName() << "에게 스킬B를 사용! ]" << std::endl;
+
+        this->SetMp(this->GetMp() - needMana);
+        player->HpShieldManager(dmg);
+        this->TurnManager();
+
+        return true;
+    }
 }
-void Monster::SkillC(Player* player)
+bool Monster::SkillC(Player* player)
 {
+    int dmg;
     int mul = 4;
+    int needMana = 50;
 
-    player->SetHp(player->GetHp() - (this->GetDmg() * mul));
+    if (this->GetMp() < needMana)
+    {
+        std::cout << "[ 마나가 부족합니다. ]" << std::endl;
+        return false;
+    }
+
+    else
+    {
+        dmg = mul * this->GetDmg() - player->GetDef();
+
+        if (dmg < 0) dmg = 0;
+
+        std::cout << "[ " << this->GetName() << "이(가) "
+            << player->GetName() << "에게 스킬C를 사용! ]" << std::endl;
+
+        this->SetMp(this->GetMp() - needMana);
+        player->HpShieldManager(dmg);
+        this->TurnManager();
+
+        return true;
+    }
 }
 
 // ----------------------기능 함수
@@ -36,32 +138,6 @@ void Monster::SkillC(Player* player)
 void Monster::PrintInfo()
 {
     Character::PrintInfo();
-    std::cout << "[ 속성: " << this->GetElement() << " ]" << std::endl;
-    std::cout << "[ 공격력: " << this->GetDmg() << " ]" << std::endl;
 
-    return;
-}
-
-void Monster::Death(Player* player)
-{
-    this->SetAlive(false);
-    player->SetMoney(player->GetMoney());
-    std::cout << "[ " << this->GetName() << "이(가) 사망하였습니다. ]" << std::endl;
-}
-
-// Get Info
-std::string Monster::GetElement() { return this->element; }
-int Monster::GetDmg() { return this->dmg; }
-
-
-// Set Info
-void Monster::SetElement(std::string _element)
-{
-    this->element = _element;
-    return;
-}
-void Monster::SetDmg(int _dmg)
-{
-    this->dmg = _dmg;
     return;
 }

@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
 
+class Player;
+// --------------------------------- CLASS
+// --------------------------------- ITEM
 class Item
 {
 private:
@@ -12,31 +15,31 @@ public:
     // 생성자
     Item()
     {
-        this->itemName = "NONE";
-        this->itemNum = 0;
-        this->itemPrice = 0;
+        this->SetItemName("NONE");
+        this->SetItemNum(0);
+        this->SetItemPrice(0);
     }
 
     Item(std::string _itemName, int _itemNum)
     {
-        this->itemName = _itemName;
-        this->itemNum = _itemNum;
-        this->itemPrice = 0;
+        this->SetItemName(_itemName);
+        this->SetItemNum(_itemNum);
+        this->SetItemPrice(0);
     }
 
     Item(std::string _itemName, int _itemNum, int _itemPrice)
     {
-        this->itemName = _itemName;
-        this->itemNum = _itemNum;
-        this->itemPrice = _itemPrice;
+        this->SetItemName(_itemName);
+        this->SetItemNum(_itemNum);
+        this->SetItemPrice(_itemPrice);
     }
     ~Item()
     {
-        std::cout << "[ 아이템이 사라졌습니다. ]" << std::endl;
     }
 
     // 기능
-    void UseItem();
+    virtual void UseItem();
+    virtual void UseItem(Player* player);
     void PrintItem();
     void PrintItem(int _index);
 

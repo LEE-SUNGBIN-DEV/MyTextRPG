@@ -2,8 +2,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Item.h"
 
+// --------------------------------- CLASS
+// --------------------------------- SHOP
 class Item;
 class Player;
 
@@ -13,11 +14,8 @@ private:
 	std::vector<Item*> sellList;
 
 public:
-
 	Shop()
 	{
-		sellList.push_back(new Item("회복 물약", 999, 50));
-		sellList.push_back(new Item("마나 물약", 999, 30));
 	}
 
 	~Shop()
