@@ -3,11 +3,19 @@
 
 void HpPotion::UseItem(Player* player)
 {
-    int value = 50;
+    int value = 80;
 
     if (this->GetItemNum() > 0)
     {
-        player->SetHp(player->GetHp() + value);
+        if (player->GetHp() <= (player->GetMaxHp() - value))
+        {
+            player->SetHp(player->GetHp() + value);
+        }
+        else
+        {
+            player->SetHp(player->GetMaxHp());
+        }
+
         std::cout << this->GetItemName() << " 아이템을 사용하였습니다." << std::endl;
     }
 

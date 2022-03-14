@@ -28,6 +28,7 @@ public:
 
 	// ±â´É
 	void BuyItem(Player* player, int _sel);
+	void AddItem(Item* _item);
 
 	// Get
 	std::vector<Item*> GetSellList();

@@ -6,7 +6,9 @@
 #include "Character.h"
 #include "Monster.h"
 #include "LUX.h"
+#include "Vayne.h"
 #include "Yasuo.h"
+#include "MasterYi.h"
 
 #include "Player.h"
 #include "Knight.h"
@@ -164,38 +166,10 @@ void SetCharInfo(vector<Player*>& playerList, int playerIndex)
 
     return;
 }
-void CreateMonster(vector<Monster*>& monsterList, Monster*& monster)
-{
-    string monSel;
-
-    while (true)
-    {
-        cout << "----------------------------------------------------" << endl;
-        cout << "(몬스터 생성) 목록: 슬라임, 고블린, 드래곤 / X: 종료" << endl;
-        cout << "----------------------------------------------------" << endl;
-        cin >> monSel;
-        if (monSel == "슬라임" || monSel == "고블린" || monSel == "드래곤")
-        {
-            monster = new Monster(monSel);
-            monsterList.push_back(monster);
-            cout << monSel << " " << "생성 완료" << endl;
-        }
-
-        else if (monSel == "X")
-        {
-            return;
-        }
-
-        else
-        {
-            cout << "ERROR: UNKNOWN MONSTER TYPE" << endl;
-        }
-    }
-}
 void InitShop()
 {
-    shop->GetSellList().push_back(new HpPotion(999));
-    shop->GetSellList().push_back(new MpPotion(999));
+    shop->AddItem(new HpPotion(999));
+    shop->AddItem(new MpPotion(999));
 }
 
 // Menu
@@ -278,6 +252,7 @@ void ShopBuyMenu(Player* player)
         std::system("cls");
         cout << "==========================" << endl;
         cout << "[ 판매 목록 ]" << endl;
+        cout << "[ 소지금 : " << player->GetGold() << " ]" << endl;
         shop->PrintShopList();
         cout << "[ 9. 돌아가기 ]" << endl;
         cout << "==========================" << endl;
@@ -379,21 +354,30 @@ void CombatMenu(Player* player, Monster* monster)
         cout << "===============================" << endl;
         cout << "[ " << player->GetName() << "의 스테이터스 ]" << endl;
         cout << "[ HP: " << player->GetHp() << " / " << "MP: " << player->GetMp() << " / " << "보호막: " << player->GetShield() << " ]" << endl;
-        cout << "[ 공격력: " << player->GetDmg() << " / " << "방어력: " << player->GetDef() << " ]" << endl;
+        cout << "[ 공격력: " << player->GetDmg() << "(+" << player->GetDmgBuff() << ")" << " / " << "방어력: " << player->GetDef() << " ]" << endl;
         cout << "===============================" << endl;
         cout << "[ " << monster->GetName() << "의 스테이터스 ]" << endl;
         cout << "[ HP: " << monster->GetHp() << " / " << "보호막: " << monster->GetShield() << " ]" << endl;
-        cout << "[ 공격력: " << monster->GetDmg() << " / " << "방어력: " << monster->GetDef() << " ]" << endl;
+        cout << "[ 공격력: " << monster->GetDmg() << "(+" << monster->GetDmgBuff() << ")" << " / " << "방어력: " << monster->GetDef() << " ]" << endl;
         cout << "===============================" << endl;
         cout << "[ 1. 일반 공격 ]" << endl;
-        cout << "[ 2. 스킬 1 ]" << endl;
-        cout << "[ 3. 스킬 2 ]" << endl;
-        cout << "[ 4. 스킬 3 ]" << endl;
+        cout << "[ 2. " << player->GetSkillNameA() << " ]" << endl;
+        cout << "[ 3. " << player->GetSkillNameB() << " ]" << endl;
+        cout << "[ 4. " << player->GetSkillNameC() << " ]" << endl;
         cout << "[ 0. 마을로 ]" << endl;
         cout << "===============================" << endl;
         
         cout << "입력 >> ";
         cin >> sel;
+
+        if (player->GetStunCnt() > 0)
+        {
+            cout << "[ 플레이어가 전투불가 상태입니다. ]" << endl;
+            cout << "[ " << player->GetStunCnt() << "턴 남음 ]" << endl;
+            player->TurnManager();
+            sel = 1;
+            goto skipPlayerTurn;
+        }
 
         switch (sel)
         {
@@ -425,24 +409,36 @@ void CombatMenu(Player* player, Monster* monster)
             TownMenu(player);
             break;
         }
+        skipPlayerTurn:
 
         if (sel != 0)
         {
             if (!monster->GetAlive())
             {
+                player->InitHp();
+                player->InitMp();
                 cout << "[ 전투 종료 : 승리]" << endl;
                 GetTwoBuffer();
                 return;
             }
 
+            if (monster->GetStunCnt() > 0)
+            {
+                cout << "[ " << monster->GetName() << "가 전투불가 상태입니다. ]" << endl;
+                cout << "[ " << monster->GetStunCnt() << "턴 남음 ]" << endl;
+                monster->TurnManager();
+                sel = 1;
+                goto skipMonsterTurn;
+            }
             monster->RandomAttack(player);
+
             if (!player->GetAlive())
             {
                 cout << "[ 전투 종료 : 패배] " << endl;
                 GetTwoBuffer();
                 return;
             }
-
+            skipMonsterTurn:
             GetTwoBuffer();
         }
     }
@@ -457,6 +453,7 @@ void GameOver()
     std::cout << "==========================" << std::endl;
     cout << "[ 협곡을 지켜낼 수 없었다. ]" << endl;
     GetOneBuffer();
+    exit(0);
 
     return;
 }
@@ -490,8 +487,10 @@ void Chapter1(Player* player, int* _progress)
         if (monster->GetAlive() == false
             && player->GetAlive() == true)
         {
-            delete(monster);
             system("cls");
+            std::cout << "==========================" << std::endl;
+            monster->DropItem(player);
+            delete(monster);
             std::cout << "==========================" << std::endl;
             std::cout << "Chapter " << *_progress << std::endl;
             std::cout << "[서폿 럭스] 클리어" << std::endl;
@@ -521,9 +520,157 @@ void Chapter1(Player* player, int* _progress)
 }
 void Chapter2(Player* player, int* _progress)
 {
+    Monster* monster = NULL;
+
+    while (*_progress == 2)
+    {
+        monster = new Vayne();
+        system("cls");
+        std::cout << "==========================" << std::endl;
+        std::cout << "Chapter " << *_progress << std::endl;
+        std::cout << "[탑 베인]" << std::endl;
+        std::cout << "==========================" << std::endl;
+        std::cout << " \"3분안에 갱 안오면 던짐 ㅅㄱ\" " << std::endl;
+
+        GetCombatBuffer();
+        CombatMenu(player, monster);
+
+        if (monster->GetAlive() == false
+            && player->GetAlive() == true)
+        {
+            system("cls");
+            std::cout << "==========================" << std::endl;
+            monster->DropItem(player);
+            delete(monster);
+            std::cout << "==========================" << std::endl;
+            std::cout << "Chapter " << *_progress << std::endl;
+            std::cout << "[탑 베인] 클리어" << std::endl;
+            std::cout << "==========================" << std::endl;
+            std::cout << " \"합류 안함 알아서 하셈ㅋ\" " << endl;
+
+            *_progress = *_progress + 1;
+            cin.get();
+            return;
+        }
+
+        else
+        {
+            delete(monster);
+            GameOver();
+            return;
+        }
+    }
+
+    if (*_progress != 2)
+    {
+        std::cout << "ERROR: WRONG ACCESS: MAIN STREAM CHAPTER " << *_progress << std::endl;
+        return;
+    }
+
+    return;
 }
 void Chapter3(Player* player, int* _progress)
 {
+    Monster* monster = NULL;
+
+    while (*_progress == 3)
+    {
+        monster = new Yasuo();
+        system("cls");
+        std::cout << "==========================" << std::endl;
+        std::cout << "Chapter " << *_progress << std::endl;
+        std::cout << "[미드 야스오]" << std::endl;
+        std::cout << "==========================" << std::endl;
+        std::cout << "[ 퍼스트 블러드 ]" << std::endl;
+        std::cout << " \"미아핑 안침?\" " << std::endl;
+
+        GetCombatBuffer();
+        CombatMenu(player, monster);
+
+        if (monster->GetAlive() == false
+            && player->GetAlive() == true)
+        {
+            system("cls");
+            std::cout << "==========================" << std::endl;
+            monster->DropItem(player);
+            delete(monster);
+            std::cout << "==========================" << std::endl;
+            std::cout << "Chapter " << *_progress << std::endl;
+            std::cout << "[미드 야스오] 클리어" << std::endl;
+            std::cout << "==========================" << std::endl;
+            std::cout << " \"걍 미드 박음\" " << endl;
+
+            *_progress = *_progress + 1;
+            cin.get();
+            return;
+        }
+
+        else
+        {
+            delete(monster);
+            GameOver();
+            return;
+        }
+    }
+
+    if (*_progress != 3)
+    {
+        std::cout << "ERROR: WRONG ACCESS: MAIN STREAM CHAPTER " << *_progress << std::endl;
+        return;
+    }
+
+    return;
+}
+void Chapter4(Player* player, int* _progress)
+{
+    Monster* monster = NULL;
+
+    while (*_progress == 4)
+    {
+        monster = new MasterYi();
+        system("cls");
+        std::cout << "==========================" << std::endl;
+        std::cout << "Chapter " << *_progress << std::endl;
+        std::cout << "[정글 마스터이]" << std::endl;
+        std::cout << "==========================" << std::endl;
+        std::cout << " \"좀만 버티셈 성장만 하고 감\" " << std::endl;
+
+        GetCombatBuffer();
+        CombatMenu(player, monster);
+
+        if (monster->GetAlive() == false
+            && player->GetAlive() == true)
+        {
+            system("cls");
+            std::cout << "==========================" << std::endl;
+            monster->DropItem(player);
+            delete(monster);
+            std::cout << "==========================" << std::endl;
+            std::cout << "Chapter " << *_progress << std::endl;
+            std::cout << "[정글 마스터이] 클리어" << std::endl;
+            std::cout << "==========================" << std::endl;
+            std::cout << " \"알려줘도 뒤지네 ㅋ\" " << endl;
+
+            *_progress = *_progress + 1;
+            cin.get();
+            return;
+        }
+
+        else
+        {
+            delete(monster);
+            GameOver();
+            return;
+        }
+    }
+
+    if (*_progress != 4)
+    {
+        std::cout << "ERROR: WRONG ACCESS: MAIN STREAM CHAPTER " << *_progress << std::endl;
+        return;
+    }
+
+    return;
 }
 void Epilogue()
 {
@@ -534,10 +681,11 @@ void Epilogue()
     cout << "[ 당신의 끈질긴 노력덕에 ]" << endl;
     cout << "[ 소환사의 협곡에 평화가 찾아왔다. ]" << endl;
 
-    GetTwoBuffer();
+    GetOneBuffer();
 
     return;
 }
+
 //
 int FindNicknameIndex(vector<Player*> player, string nick);
 void PrintSearchPlayer(vector<Player*> player, int index);
@@ -568,13 +716,17 @@ int main()
         Chapter1(playerList[0], progress);
         Chapter2(playerList[0], progress);
         Chapter3(playerList[0], progress);
+        Chapter4(playerList[0], progress);
         Epilogue();
 
     case 2:
         return 0;
     }
 
-    delete(shop);
+    delete player;
+    delete monster;
+    delete shop;
+    delete progress;
     
     return 0;
 }

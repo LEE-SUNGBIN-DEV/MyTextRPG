@@ -59,6 +59,10 @@ int Item::GetItemPrice()
 {
     return this->itemPrice;
 }
+int Item::GetItemType()
+{
+    return this->itemType;
+}
 
 // set
 void Item::SetItemName(std::string _itemName)
@@ -73,4 +77,9 @@ void Item::SetItemNum(int _itemNum)
 void Item::SetItemPrice(int _itemPrice)
 {
     this->itemPrice = _itemPrice;
+}
+
+void Item::SetItemType(int _itemType)
+{
+    this->itemType = _itemType;
 }

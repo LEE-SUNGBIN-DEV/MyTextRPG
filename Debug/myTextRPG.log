@@ -1,13 +1,3 @@
 ﻿  Main.cpp
-C:\VisualProject\myTextRPG\Main.cpp(588,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  MpPotion.cpp
-  Player.cpp
-C:\VisualProject\myTextRPG\Player.cpp(130,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\VisualProject\myTextRPG\Player.cpp(139,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\VisualProject\myTextRPG\Player.cpp(156,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\VisualProject\myTextRPG\Player.cpp(173,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\VisualProject\myTextRPG\Player.cpp(209,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\VisualProject\myTextRPG\Player.cpp(233,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\VisualProject\myTextRPG\Player.cpp(260,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  코드를 생성하고 있습니다...
+C:\VisualProject\myTextRPG\Main.cpp(739,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
   myTextRPG.vcxproj -> C:\VisualProject\myTextRPG\Debug\myTextRPG.exe

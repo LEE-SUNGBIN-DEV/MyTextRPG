@@ -8,8 +8,9 @@
 bool Wizard::Attack(Monster* monster)
 {
     int dmg;
+    int mul = 1;
 
-    dmg = this->GetDmg() - monster->GetDef();
+    dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
     if (dmg < 0) dmg = 0;
 
     std::cout << "[ " << this->GetName() << "이(가) "
@@ -33,11 +34,11 @@ bool Wizard::SkillA(Monster* monster)
     }
     else
     {
-        dmg = mul * this->GetDmg() - monster->GetDef();
+        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
         if (dmg < 0) dmg = 0;
 
         std::cout << "[ " << this->GetName() << "이(가) "
-            << monster->GetName() << "에게 스킬A 사용! ]" << std::endl;
+            << monster->GetName() << "에게 파이어 볼 사용! ]" << std::endl;
 
         this->SetMp(this->GetMp() - needMana);
         monster->HpShieldManager(dmg);
@@ -50,7 +51,7 @@ bool Wizard::SkillA(Monster* monster)
 bool Wizard::SkillB(Monster* monster)
 {
     int dmg;
-    int mul = 3;
+    int mul = 1;
     int needMana = 30;
 
     if (this->GetMp() < needMana)
@@ -61,12 +62,18 @@ bool Wizard::SkillB(Monster* monster)
 
     else
     {
-        dmg = mul * this->GetDmg() - monster->GetDef();
+        this->SetDmgBuff(this->GetDmgBuff() + 5);
+        this->SetDmgBuffCnt(this->GetDmgBuffCnt() + 2);
+
+        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+
         if (dmg < 0) dmg = 0;
 
         std::cout << "[ " << this->GetName() << "이(가) "
-            << monster->GetName() << "에게 스킬B 사용! ]" << std::endl;
+            << monster->GetName() << "에게 아이스 스피어 사용! ]" << std::endl;
+        std::cout << "[ 빙결(2턴) ]" << std::endl;
 
+        monster->SetStunCnt(2);
         monster->HpShieldManager(dmg);
         this->SetMp(this->GetMp() - needMana);
         this->TurnManager();
@@ -77,7 +84,7 @@ bool Wizard::SkillB(Monster* monster)
 bool Wizard::SkillC(Monster* monster)
 {
     int dmg;
-    int mul = 4;
+    int mul = 5;
     int needMana = 50;
 
     if (this->GetMp() < needMana)
@@ -88,11 +95,11 @@ bool Wizard::SkillC(Monster* monster)
 
     else
     {
-        dmg = mul * this->GetDmg() - monster->GetDef();
+        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
         if (dmg < 0) dmg = 0;
 
         std::cout << "[ " << this->GetName() << "이(가) "
-            << monster->GetName() << "에게 스킬C 사용!] " << std::endl;
+            << monster->GetName() << "에게 메테오 사용!] " << std::endl;
 
         monster->HpShieldManager(dmg);
         this->SetMp(this->GetMp() - needMana);
@@ -101,3 +108,4 @@ bool Wizard::SkillC(Monster* monster)
         return true;
     }
 }
+

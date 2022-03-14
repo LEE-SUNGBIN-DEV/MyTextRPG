@@ -1,5 +1,7 @@
+#include <random>
 #include "Yasuo.h"
 #include "Player.h"
+#include "TitleScientist.h"
 // --------------------------------- CLASS
 // --------------------------------- YASUO
 // 공격 함수
@@ -33,13 +35,13 @@ void Yasuo::RandomAttack(Player* player)
 bool Yasuo::Attack(Player* player)
 {
 	int dmg;
-
-	dmg = this->GetDmg() - player->GetDef();
-
-	if (dmg < 0) dmg = 0;
+	int mul = 1;
 
 	std::cout << "[ " << this->GetName() << "이(가) "
 		<< player->GetName() << "에게 기본 공격! ]" << std::endl;
+
+	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	if (dmg < 0) dmg = 0;
 
 	player->SetHp(player->GetHp() - dmg);
 	this->TurnManager();
@@ -51,12 +53,11 @@ bool Yasuo::SkillA(Player* player)
 	int dmg;
 	int mul = 2;
 
-	dmg = mul * this->GetDmg() - player->GetDef();
-
-	if (dmg < 0) dmg = 0;
-
 	std::cout << "[ " << this->GetName() << "이(가) "
-		<< player->GetName() << "에게 속박 사용! ]" << std::endl;
+		<< player->GetName() << "에게 강철 폭풍 사용! ]" << std::endl;
+
+	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	if (dmg < 0) dmg = 0;
 
 	player->SetHp(player->GetHp() - dmg);
 	this->TurnManager();
@@ -65,11 +66,19 @@ bool Yasuo::SkillA(Player* player)
 }
 bool Yasuo::SkillB(Player* player)
 {
-	this->SetShield(this->GetShield() + 7);
+	int dmg;
+	int mul = 1;
+
+	std::cout << "[ " << this->GetName() << "이(가) 바람장막 사용! ]" << std::endl;
+	std::cout << "[ 보호막(2턴) ]" << std::endl;
+
+	this->SetShield(this->GetShield() + 100);
 	this->SetShieldCnt(this->GetShieldCnt() + 2);
 
-	std::cout << "[ " << this->GetName() << "이(가) 보호막 사용! ]" << std::endl;
+	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	if (dmg < 0) dmg = 0;
 
+	player->SetHp(player->GetHp() - dmg);
 	this->TurnManager();
 
 	return true;
@@ -79,15 +88,21 @@ bool Yasuo::SkillC(Player* player)
 	int dmg;
 	int mul = 6;
 
-	dmg = mul * this->GetDmg() - player->GetDef();
-
-	if (dmg < 0) dmg = 0;
-
 	std::cout << "[ " << this->GetName() << "이(가) "
-		<< player->GetName() << "에게 데마시아!! ]" << std::endl;
+		<< player->GetName() << "에게 우리에게돈!!! ]" << std::endl;
+
+	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	if (dmg < 0) dmg = 0;
 
 	player->SetHp(player->GetHp() - dmg);
 	this->TurnManager();
 
 	return true;
+}
+
+void Yasuo::DropItem(Player* player)
+{
+	std::cout << "[ 칭호: 과학자를 얻었다! ]" << std::endl;
+	player->AddItem(new TitleScientist());
+	player->SetGold(player->GetGold() + this->GetDropGold());
 }

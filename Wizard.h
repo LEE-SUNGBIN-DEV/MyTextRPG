@@ -5,7 +5,7 @@
 #include "Player.h"
 
 // --------------------------------- CLASS
-// --------------------------------- KNIGHT
+// --------------------------------- WIZARD
 class Monster;
 
 class Wizard : public Player
@@ -24,6 +24,9 @@ public:
         this->SetPlayerType(ENUM_PLAYER_WIZARD);
         this->SetDmg(8);
         this->SetDef(4);
+        this->SetSkillNameA("파이어 볼");
+        this->SetSkillNameB("아이스 스피어");
+        this->SetSkillNameC("메테오");
     }
 
     ~Wizard()

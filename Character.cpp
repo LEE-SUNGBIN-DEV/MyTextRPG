@@ -1,4 +1,5 @@
 #include "Character.h"
+#include <iostream>
 
 // --------------------------------- CLASS
 // --------------------------------- CHARACTER
@@ -13,20 +14,25 @@ void Character::Death()
     this->SetAlive(false);
     std::cout << "[ " << this->GetName() << "이(가) 사망하였습니다. ]" << std::endl;
 }
-void Character::FreeMemory()
+void Character::InitHp()
 {
-    delete(this);
+    this->SetHp(this->GetMaxHp());
+    return;
 }
-
+void Character::InitMp()
+{
+    this->SetMp(this->GetMaxMp());
+    return;
+}
 // 관리 함수
 void Character::TurnManager()
 {
-    int manaRecovery = 5;
+    int turnValue = 1;
 
     // 보호막 턴
     if (this->GetShieldCnt() > 0)
     {
-        this->SetShieldCnt(this->GetShieldCnt() - 1);
+        this->SetShieldCnt(this->GetShieldCnt() - turnValue);
 
         if (this->GetShieldCnt() == 0)
         {
@@ -34,10 +40,44 @@ void Character::TurnManager()
         }
     }
 
-    // 마나 회복
-    if (this->GetMaxMp() - this->GetMp() > manaRecovery)
+    // 스턴 턴
+    if (this->GetStunCnt() > 0)
     {
-        this->SetMp(this->GetMp() + manaRecovery);
+        this->SetStunCnt(this->GetStunCnt() - turnValue);
+    }
+
+    // 공격력 버프
+    if (this->GetDmgBuffCnt() > 0)
+    {
+        this->SetDmgBuffCnt(this->GetDmgBuffCnt() - turnValue);
+
+        if (this->GetDmgBuffCnt() == 0)
+        {
+            this->SetDmgBuff(0);
+        }
+    }
+
+    // 방어력 버프
+    if (this->GetDefBuffCnt() > 0)
+    {
+        this->SetDefBuffCnt(this->GetDefBuffCnt() - turnValue);
+
+        if (this->GetDefBuffCnt() == 0)
+        {
+            this->SetDefBuff(0);
+        }
+    }
+
+    // 마나 회복
+    if (this->GetMaxMp() - this->GetMp() > this->GetMpRecovery())
+    {
+        this->SetMp(this->GetMp() + this->GetMpRecovery());
+    }
+
+    // 체력 회복
+    if (this->GetMaxHp() - this->GetHp() > this->GetHpRecovery())
+    {
+        this->SetHp(this->GetHp() + this->GetHpRecovery());
     }
 
     return;
@@ -86,20 +126,33 @@ void Character::PrintInfo()
 
 // Get Info
 std::string Character::GetName() { return this->name; }
+std::string Character::GetTitle() { return this->title; }
 int Character::GetMaxHp() { return this->maxHp; }
 int Character::GetMaxMp() { return this->maxMp; }
 int Character::GetHp() { return this->hp; }
+int Character::GetHpRecovery() { return this->hpRecovery; }
 int Character::GetMp() { return this->mp; }
+int Character::GetMpRecovery() { return this->mpRecovery; }
 int Character::GetDmg() { return this->dmg; }
 int Character::GetDef() { return this->def; }
 int Character::GetShield() { return this->shield; }
-int Character::GetShieldCnt() { return this->shieldTurn; }
+int Character::GetShieldCnt() { return this->shieldCnt; }
+int Character::GetStunCnt() { return this->stunCnt; }
+int Character::GetDmgBuff() {return this->dmgBuff; }
+int Character::GetDmgBuffCnt() { return this->dmgBuffCnt; }
+int Character::GetDefBuff() { return this->defBuff; }
+int Character::GetDefBuffCnt() { return this->defBuffCnt; }
 bool Character::GetAlive() { return this->alive; }
 
 // Set Info
 void Character::SetName(std::string _name)
 {
     this->name = _name;
+    return;
+}
+void Character::SetTitle(std::string _title)
+{
+    this->title = _title;
     return;
 }
 void Character::SetMaxHp(int _maxHp)
@@ -121,9 +174,19 @@ void Character::SetHp(int _hp)
 
     return;
 }
+void Character::SetHpRecovery(int _hpRecovery)
+{
+    this->hpRecovery = _hpRecovery;
+    return;
+}
 void Character::SetMp(int _mp)
 {
     this->mp = _mp;
+    return;
+}
+void Character::SetMpRecovery(int _mpRecovery)
+{
+    this->mpRecovery = _mpRecovery;
     return;
 }
 void Character::SetDmg(int _dmg)
@@ -143,11 +206,34 @@ void Character::SetShield(int _shield)
 }
 void Character::SetShieldCnt(int _cnt)
 {
-    this->shieldTurn = _cnt;
+    this->shieldCnt = _cnt;
     return;
 }
 void Character::SetAlive(bool _alive)
 {
     this->alive = _alive;
+    return;
+}
+void Character::SetDmgBuff(int _dmgBuff)
+{
+    this->dmgBuff = _dmgBuff;
+    return;
+}
+void Character::SetDmgBuffCnt(int _dmgBuffCnt)
+{
+    this->dmgBuffCnt = _dmgBuffCnt;
+}
+void Character::SetDefBuff(int _defBuff)
+{
+    this->defBuff = _defBuff;
+    return;
+}
+void Character::SetDefBuffCnt(int _defBuffCnt)
+{
+    this->defBuffCnt = _defBuffCnt;
+}
+void Character::SetStunCnt(int _stunCnt)
+{
+    this->stunCnt = _stunCnt;
     return;
 }

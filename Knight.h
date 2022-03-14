@@ -24,6 +24,9 @@ public:
         this->SetPlayerType(ENUM_PLAYER_KNIGHT);
         this->SetDmg(4);
         this->SetDef(8);
+        this->SetSkillNameA("배쉬");
+        this->SetSkillNameB("신체강화");
+        this->SetSkillNameC("심판");
     }
 
     ~Knight()

@@ -7,7 +7,15 @@ void MpPotion::UseItem(Player* player)
 
     if (this->GetItemNum() > 0)
     {
-        player->SetMp(player->GetMp() + value);
+        if (player->GetMp() <= (player->GetMaxMp() - value))
+        {
+            player->SetMp(player->GetMp() + value);
+        }
+        else
+        {
+            player->SetMp(player->GetMaxMp());
+        }
+
         std::cout << this->GetItemName() << " 아이템을 사용하였습니다." << std::endl;
     }
 

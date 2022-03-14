@@ -109,7 +109,7 @@ void Player::PrintInfo()
 {
     Character::PrintInfo();
     std::cout << "[ 직업: " << this->GetTypeName() << " ]" << std::endl;
-    std::cout << "[ 소지금: " << this->GetMoney() << " ]" << std::endl;
+    std::cout << "[ 소지금: " << this->GetGold() << " ]" << std::endl;
     std::cout << "[ 경험치: " << this->GetExp() << " ]" << std::endl;
 
     return;
@@ -272,7 +272,10 @@ void Player::UseInventoryItem(int _index)
     if (this->userInventory[_index]->GetItemNum() > 0)
     {
         this->userInventory[_index]->UseItem(this);
-        this->RemoveItem(_index);
+        if (this->userInventory[_index]->GetItemType() != ENUM_ITEM_EQUIP)
+        {
+            this->RemoveItem(_index);
+        }
     }
 }
 
@@ -286,7 +289,10 @@ int Player::GetExp() { return this->exp; }
 int Player::GetUserAge() { return this->userInfo.userAge; }
 int Player::GetItemNum(int i) { return this->userInventory[i]->GetItemNum(); }
 int Player::GetPlayerType() { return this->playerType; }
-int Player::GetMoney() { return this->money; }
+int Player::GetGold() { return this->gold; }
+std::string Player::GetSkillNameA() { return this->SkillNameA; }
+std::string Player::GetSkillNameB() { return this->SkillNameB; }
+std::string Player::GetSkillNameC() { return this->SkillNameC; }
 
 // Set Info
 void Player::SetUserInfo(std::string _name, int _age)
@@ -304,13 +310,28 @@ void Player::SetPlayerType(int _sel)
     this->playerType = _sel;
     return;
 }
-void Player::SetMoney(int _money)
+void Player::SetGold(int _money)
 {
-    this->money = _money;
+    this->gold = _money;
     return;
 }
 void Player::SetTypeName(std::string _typeName)
 {
     this->typeName = _typeName;
+    return;
+}
+void Player::SetSkillNameA(std::string _skillName)
+{
+    this->SkillNameA = _skillName;
+    return;
+}
+void Player::SetSkillNameB(std::string _skillName)
+{
+    this->SkillNameB = _skillName;
+    return;
+}
+void Player::SetSkillNameC(std::string _skillName)
+{
+    this->SkillNameC = _skillName;
     return;
 }

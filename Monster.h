@@ -1,6 +1,4 @@
 #pragma once
-#include <iostream>
-#include <random>
 #include "Character.h"
 
 class Player;
@@ -19,13 +17,15 @@ enum MyMonsterType
 class Monster : public Character
 {
 private:
+    int dropGold;
 
 public:
     // 생성자
     Monster()
     {
+        this->SetDropGold(0);
     }
-    Monster(std::string _name)
+    Monster(std::string _name) : Monster()
     {
         this->SetName(_name);
     }
@@ -39,4 +39,11 @@ public:
 
     // 기능 함수
     virtual void PrintInfo();
+    virtual void DropItem(Player* player);
+
+    // get
+    virtual int GetDropGold();
+
+    // set
+    virtual void SetDropGold(int _dropGold);
 };

@@ -1,6 +1,4 @@
 #pragma once
-#include <iostream>
-#include <random>
 #include "Monster.h"
 
 // --------------------------------- CLASS
@@ -15,8 +13,10 @@ public:
     // 생성자
     LUX()
     {
-        this->SetDmg(10);
-        this->SetDef(1);
+        this->SetHp(70);
+        this->SetDmg(7);
+        this->SetDef(0);
+        this->SetDropGold(100);
         this->SetName("럭스");
     }
 
@@ -26,4 +26,7 @@ public:
     bool SkillA(Player* player);
     bool SkillB(Player* player);
     bool SkillC(Player* player);
+
+    // 기능함수
+    void DropItem(Player* player);
 };

@@ -1,3 +1,4 @@
+#include <random>
 #include "Monster.h"
 #include "Player.h"
 
@@ -140,4 +141,21 @@ void Monster::PrintInfo()
     Character::PrintInfo();
 
     return;
+}
+
+void Monster::DropItem(Player* player)
+{
+    player->SetGold(player->GetGold() + this->GetDropGold());
+}
+
+// get
+int Monster::GetDropGold()
+{
+    return this->dropGold;
+}
+
+// set
+void Monster::SetDropGold(int _dropGold)
+{
+    this->dropGold = _dropGold;
 }

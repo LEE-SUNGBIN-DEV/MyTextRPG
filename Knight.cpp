@@ -2,14 +2,15 @@
 #include "Monster.h"
 
 // --------------------------------- CLASS
-// --------------------------------- Knight
+// --------------------------------- KNIGHT
 
 // ----------------------공격 함수
 bool Knight::Attack(Monster* monster)
 {
     int dmg;
+    int mul = 1;
 
-    dmg = this->GetDmg() - monster->GetDef();
+    dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
     if (dmg < 0) dmg = 0;
 
     std::cout << "[ " << this->GetName() << "이(가) "
@@ -33,12 +34,14 @@ bool Knight::SkillA(Monster* monster)
     }
     else
     {
-        dmg = mul * this->GetDmg() - monster->GetDef();
+        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
         if (dmg < 0) dmg = 0;
 
         std::cout << "[ " << this->GetName() << "이(가) "
-            << monster->GetName() << "에게 스킬A 사용! ]" << std::endl;
+            << monster->GetName() << "에게 배쉬 사용! ]" << std::endl;
+        std::cout << "[ 스턴(1턴) ]" << std::endl;
 
+        monster->SetStunCnt(1);
         this->SetMp(this->GetMp() - needMana);
         monster->HpShieldManager(dmg);
         this->TurnManager();
@@ -50,7 +53,7 @@ bool Knight::SkillA(Monster* monster)
 bool Knight::SkillB(Monster* monster)
 {
     int dmg;
-    int mul = 3;
+    int mul = 1;
     int needMana = 30;
 
     if (this->GetMp() < needMana)
@@ -61,11 +64,15 @@ bool Knight::SkillB(Monster* monster)
 
     else
     {
-        dmg = mul * this->GetDmg() - monster->GetDef();
+        this->SetDmgBuff(this->GetDmgBuff() + 5);
+        this->SetDmgBuffCnt(this->GetDmgBuffCnt() + 2);
+
+        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+
         if (dmg < 0) dmg = 0;
 
-        std::cout << "[ " << this->GetName() << "이(가) "
-            << monster->GetName() << "에게 스킬B 사용! ]" << std::endl;
+        std::cout << "[ " << this->GetName() << "이(가) 신체강화 사용! ]" << std::endl;
+        std::cout << "[ 공격력 버프 +5 (2턴) ]" << std::endl;
 
         monster->HpShieldManager(dmg);
         this->SetMp(this->GetMp() - needMana);
@@ -77,7 +84,7 @@ bool Knight::SkillB(Monster* monster)
 bool Knight::SkillC(Monster* monster)
 {
     int dmg;
-    int mul = 4;
+    int mul = 5;
     int needMana = 50;
 
     if (this->GetMp() < needMana)
@@ -88,11 +95,11 @@ bool Knight::SkillC(Monster* monster)
 
     else
     {
-        dmg = mul * this->GetDmg() - monster->GetDef();
+        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
         if (dmg < 0) dmg = 0;
 
         std::cout << "[ " << this->GetName() << "이(가) "
-            << monster->GetName() << "에게 스킬C 사용!] " << std::endl;
+            << monster->GetName() << "에게 심판 사용!] " << std::endl;
 
         monster->HpShieldManager(dmg);
         this->SetMp(this->GetMp() - needMana);

@@ -1,5 +1,8 @@
+#include <random>
 #include "LUX.h"
+#include "Wand.h"
 #include "Player.h"
+
 // --------------------------------- CLASS
 // --------------------------------- LUX
 // 공격 함수
@@ -33,13 +36,13 @@ void LUX::RandomAttack(Player* player)
 bool LUX::Attack(Player* player)
 {
 	int dmg;
-
-	dmg = this->GetDmg() - player->GetDef();
-
-	if (dmg < 0) dmg = 0;
+	int mul = 1;
 
 	std::cout << "[ " << this->GetName() << "이(가) "
 		<< player->GetName() << "에게 기본 공격! ]" << std::endl;
+
+	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	if (dmg < 0) dmg = 0;
 
 	player->SetHp(player->GetHp() - dmg);
 	this->TurnManager();
@@ -51,12 +54,16 @@ bool LUX::SkillA(Player* player)
 	int dmg;
 	int mul = 2;
 
-	dmg = mul * this->GetDmg() - player->GetDef();
-
-	if (dmg < 0) dmg = 0;
-
 	std::cout << "[ " << this->GetName() << "이(가) "
 		<< player->GetName() << "에게 속박 사용! ]" << std::endl;
+	std::cout << "[ 스턴(1턴) ]" << std::endl;
+
+	player->SetStunCnt(player->GetStunCnt() + 1);
+	this->SetShield(this->GetShield() + 7);
+	this->SetShieldCnt(this->GetShieldCnt() + 2);
+
+	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	if (dmg < 0) dmg = 0;
 
 	player->SetHp(player->GetHp() - dmg);
 	this->TurnManager();
@@ -65,11 +72,19 @@ bool LUX::SkillA(Player* player)
 }
 bool LUX::SkillB(Player* player)
 {
+	int dmg;
+	int mul = 1;
+
+	std::cout << "[ " << this->GetName() << "이(가) 보호막 사용! ]" << std::endl;
+	std::cout << "[ 보호막(1턴) ]" << std::endl;
+
 	this->SetShield(this->GetShield() + 7);
 	this->SetShieldCnt(this->GetShieldCnt() + 2);
 
-	std::cout << "[ " << this->GetName() << "이(가) 보호막 사용! ]" << std::endl;
+	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	if (dmg < 0) dmg = 0;
 
+	player->SetHp(player->GetHp() - dmg);
 	this->TurnManager();
 
 	return true;
@@ -79,15 +94,21 @@ bool LUX::SkillC(Player* player)
 	int dmg;
 	int mul = 6;
 
-	dmg = mul * this->GetDmg() - player->GetDef();
-
-	if (dmg < 0) dmg = 0;
-
 	std::cout << "[ " << this->GetName() << "이(가) "
 		<< player->GetName() << "에게 데마시아!! ]" << std::endl;
+
+	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	if (dmg < 0) dmg = 0;
 
 	player->SetHp(player->GetHp() - dmg);
 	this->TurnManager();
 
 	return true;
+}
+
+void LUX::DropItem(Player* player)
+{
+	std::cout << "[ 럭스의 지팡이를 얻었다! ]" << std::endl;
+	player->AddItem(new Wand());
+	player->SetGold(player->GetGold() + this->GetDropGold());
 }

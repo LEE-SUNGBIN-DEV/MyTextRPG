@@ -16,16 +16,16 @@ void Shop::PrintShopList()
 void Shop::BuyItem(Player* player, int _sel)
 {
 	// 해당 아이템을 구매하기에 충분한 돈이 있으면
-	if (player->GetMoney() >= this->sellList[_sel]->GetItemPrice())
+	if (player->GetGold() >= this->sellList[_sel]->GetItemPrice())
 	{
-		player->SetMoney(player->GetMoney() - this->sellList[_sel]->GetItemPrice());
+		player->SetGold(player->GetGold() - this->sellList[_sel]->GetItemPrice());
 
 		this->sellList[_sel]->SetItemNum(this->sellList[_sel]->GetItemNum() - 1);
 
 		player->AddItem(this->sellList[_sel]->GetItemName());
 		
 		std::cout << "[ " << this->sellList[_sel]->GetItemName() << "을 구매하였습니다. ]" << std::endl;
-		std::cout << "[ 잔액: " << player->GetMoney() << " ]" << std::endl;
+		std::cout << "[ 잔액: " << player->GetGold() << " ]" << std::endl;
 	}
 
 	else
@@ -35,7 +35,10 @@ void Shop::BuyItem(Player* player, int _sel)
 
 	return;
 }
-
+void Shop::AddItem(Item* _item)
+{
+	this->sellList.push_back(_item);
+}
 std::vector<Item*> Shop::GetSellList()
 {
 	return this->sellList;
