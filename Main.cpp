@@ -20,30 +20,74 @@
 
 using namespace std;
 
-string gameTitle = "협곡의 쓰레기";
-
 // global
+string gameTitle = "협곡의 쓰레기";
 Shop* shop = new Shop();
+
+// art
+enum COLOR{
+    BLACK,
+    DARK_BLUE,
+    DARK_GREEN,
+    DARK_SKYBLUE,
+    DARK_RED,
+    DARK_VOILET,
+    DAKR_YELLOW,
+    GRAY,
+    DARK_GRAY,
+    BLUE,
+    GREEN,
+    SKYBLUE,
+    RED,
+    VIOLET,
+    YELLOW,
+    WHITE,
+};
+
+void setColor(unsigned short text)
+{
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text);
+}
+
+
 
 // Input Control
 void GetCombatBuffer()
 {
+    setColor(GREEN);
     cout << endl;
     cout << "▷ [ 혼내주자 : Enter ]" << endl;
+    setColor(WHITE);
     cin.get();
 }
 void GetOneBuffer()
 {
+    setColor(GREEN);
     cout << endl;
     cout << "▷ [ 확인: Enter ]" << endl;
+    setColor(WHITE);
     cin.get();
 }
 void GetTwoBuffer()
 {
+    setColor(GREEN);
     cout << endl;
     cout << "▷ [ 확인: Enter ]" << endl;
+    setColor(WHITE);
     cin.get();
     cin.get();
+}
+void SelectPrint()
+{
+    setColor(GREEN);
+    cout << "선택 >> ";
+    setColor(WHITE);
+}
+void InputPrint()
+{
+    setColor(GREEN);
+    cout << "입력 >> ";
+    setColor(WHITE);
 }
 
 // init
@@ -54,12 +98,15 @@ int MainTitle()
     while (true)
     {
         std::system("cls");
+        setColor(RED);
         cout << "============================" << endl;
         cout << "　[" << gameTitle << " ]" << endl;
         cout << "============================" << endl;
+        setColor(GREEN);
         cout << "[ 1. 게임 시작 ]" << endl;
         cout << "[ 2. 게임 종료 ]" << endl;
-        cout << "선택 >> ";
+        SelectPrint();
+        setColor(WHITE);
 
         cin >> userSel;
 
@@ -71,9 +118,7 @@ int MainTitle()
         else
         {
             cout << "ERROR: WRONG INPUT: MainTitle()" << endl;
-            cout << "[ 확인: Enter ]" << endl;
-            cin.get();
-            cin.get();
+            GetTwoBuffer();
         }
     }
 }
@@ -89,7 +134,7 @@ void CreatePlayer(vector<Player*>& playerList, Player*& player)
         cout << "[ 1. 전사 ]" << endl;
         cout << "[ 2. 마법사 ]" << endl;
         cout << "====================================" << endl;
-        cout << "선택 >> ";
+        SelectPrint();
 
         cin >> userSel;
 
@@ -117,15 +162,14 @@ void SetUserInfo(vector<Player*>& playerList, int playerIndex)
     cout << "[ 성함을 입력하세요. ]" << endl;
     cout << "====================================" << endl;
 
-    cout << "입력 >> ";
+    InputPrint();
     cin >> userNameInput;
     
-    std::system("cls");
     cout << "====================================" << endl;
     cout << "[ 나이를 입력하세요. ]" << endl;
     cout << "====================================" << endl;
 
-    cout << "입력 >> ";
+    InputPrint();
     cin >> userAgeInput;
 
     playerList[playerIndex]->SetUserInfo(userNameInput, userAgeInput);
@@ -147,7 +191,7 @@ void SetCharInfo(vector<Player*>& playerList, int playerIndex)
     cout << "[ 닉네임을 입력하세요. ]" << endl;
     cout << "====================================" << endl;
 
-    cout << "입력 >> ";
+    InputPrint();
     cin >> userInput;
     playerList[playerIndex]->SetName(userInput);
 
@@ -186,7 +230,7 @@ void InventoryUseMenu(Player* player)
         cout << "[ 9. 돌아가기 ]" << endl;
         cout << "==========================" << endl;
 
-        cout << "선택 >> ";
+        SelectPrint();
         cin >> sel;
 
         switch (sel)
@@ -225,7 +269,7 @@ void InventoryMenu(Player* player)
         cout << "[ 2. 아이템 사용 ]" << endl;
         cout << "[ 0. 돌아가기 ]" << endl;
         cout << "==========================" << endl;
-        cout << "선택 >> ";
+        SelectPrint();
         cin >> userInventorySel;
 
         switch (userInventorySel)
@@ -257,7 +301,7 @@ void ShopBuyMenu(Player* player)
         cout << "[ 9. 돌아가기 ]" << endl;
         cout << "==========================" << endl;
         
-        cout << "선택 >> ";
+        SelectPrint();
         cin >> sel;
 
         switch (sel)
@@ -294,7 +338,7 @@ void ShopMenu(Player* player)
         cout << "[ 2. 아이템 판매(미구현) ]" << endl;
         cout << "[ 0. 돌아가기 ]" << endl;
         cout << "==========================" << endl;
-        cout << "선택 >> ";
+        SelectPrint();
         cin >> sel;
 
         switch (sel)
@@ -323,7 +367,7 @@ void TownMenu(Player* player)
         cout << "[ 2. 상점으로 ]" << endl;
         cout << "[ 0. 돌아가기 ]" << endl;
         cout << "==========================" << endl;
-        cout << "선택 >> ";
+        SelectPrint();
         cin >> sel;
 
         switch (sel)
@@ -367,7 +411,7 @@ void CombatMenu(Player* player, Monster* monster)
         cout << "[ 0. 마을로 ]" << endl;
         cout << "===============================" << endl;
         
-        cout << "입력 >> ";
+        SelectPrint();
         cin >> sel;
 
         if (player->GetStunCnt() > 0)
