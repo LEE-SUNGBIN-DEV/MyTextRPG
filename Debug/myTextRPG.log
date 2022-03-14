@@ -1,3 +1,3 @@
 ﻿  Main.cpp
-C:\VisualProject\myTextRPG\Main.cpp(780,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  myTextRPG.vcxproj -> C:\VisualProject\myTextRPG\Debug\myTextRPG.exe
+D:\VisualProject\myTextRPG\Main.cpp(836,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  myTextRPG.vcxproj -> D:\VisualProject\myTextRPG\Debug\myTextRPG.exe

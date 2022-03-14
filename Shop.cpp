@@ -1,5 +1,7 @@
 #include "Shop.h"
 #include "Item.h"
+#include "HpPotion.h"
+#include "MpPotion.h"
 #include "Player.h"
 // --------------------------------- CLASS
 // --------------------------------- SHOP
@@ -22,8 +24,15 @@ void Shop::BuyItem(Player* player, int _sel)
 
 		this->sellList[_sel]->SetItemNum(this->sellList[_sel]->GetItemNum() - 1);
 
-		player->AddItem(this->sellList[_sel]->GetItemName());
+		if (this->sellList[_sel]->GetItemName() == "체력 물약")
+		{
+			player->AddItem(new HpPotion());
+		}
 		
+		else if (this->sellList[_sel]->GetItemName() == "마나 물약")
+		{
+			player->AddItem(new MpPotion());
+		}
 		std::cout << "[ " << this->sellList[_sel]->GetItemName() << "을 구매하였습니다. ]" << std::endl;
 		std::cout << "[ 잔액: " << player->GetGold() << " ]" << std::endl;
 	}
