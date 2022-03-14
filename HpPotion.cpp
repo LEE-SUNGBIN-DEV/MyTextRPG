@@ -5,6 +5,7 @@ void HpPotion::UseItem(Player* player)
 {
     int value = 80;
 
+    setColor(VIOLET);
     if (this->GetItemNum() > 0)
     {
         if (player->GetHp() <= (player->GetMaxHp() - value))

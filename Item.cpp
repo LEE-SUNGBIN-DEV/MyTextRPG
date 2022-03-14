@@ -1,10 +1,12 @@
 #include "Item.h"
 #include "Player.h"
+#include "windows.h"
 
 // --------------------------------- CLASS
 // --------------------------------- ITEM
 void Item::UseItem()
 {
+    setColor(VIOLET);
     if (this->GetItemNum() > 0)
     {
         std::cout << this->GetItemName() << " 아이템을 사용하였습니다." << std::endl;
@@ -18,6 +20,7 @@ void Item::UseItem()
 
 void Item::UseItem(Player* player)
 {
+    setColor(VIOLET);
     if (this->GetItemNum() > 0)
     {
         std::cout << this->GetItemName() << " 아이템을 사용하였습니다." << std::endl;
@@ -31,6 +34,7 @@ void Item::UseItem(Player* player)
 
 void Item::PrintItem()
 {
+    setColor(VIOLET);
     std::cout << "--------------------------------" << std::endl;
     std::cout << "[" << this->GetItemName() << "] "
         << "[" << this->GetItemNum() << "]" << std::endl;
@@ -39,6 +43,7 @@ void Item::PrintItem()
 
 void Item::PrintItem(int _index)
 {
+    setColor(VIOLET);
     std::cout << "--------------------------------" << std::endl;
     std::cout << "[슬롯 번호: " << _index << "] "
         << "[" << this->GetItemName() << "] "

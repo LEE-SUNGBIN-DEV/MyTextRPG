@@ -17,6 +17,7 @@ void Shop::PrintShopList()
 
 void Shop::BuyItem(Player* player, int _sel)
 {
+	setColor(VIOLET);
 	// 해당 아이템을 구매하기에 충분한 돈이 있으면
 	if (player->GetGold() >= this->sellList[_sel]->GetItemPrice())
 	{

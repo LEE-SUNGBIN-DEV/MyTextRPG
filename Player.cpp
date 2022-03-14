@@ -9,12 +9,14 @@
 bool Player::Attack(Monster* monster)
 {
     int dmg;
+    int mul = 1;
 
-    dmg = this->GetDmg() - monster->GetDef();
-    if (dmg < 0) dmg = 0;
-
+    setColor(RED);
     std::cout << "[ " << this->GetName() << "이(가) "
         << monster->GetName() << "에게 기본 공격! ]" << std::endl;
+
+    dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+    if (dmg < 0) dmg = 0;
 
     monster->HpShieldManager(dmg);
     this->TurnManager();
@@ -27,6 +29,7 @@ bool Player::SkillA(Monster* monster)
     int mul = 2;
     int needMana = 20;
 
+    setColor(RED);
     if (this->GetMp() < needMana)
     {
         std::cout << "[ 마나가 부족합니다. ]" << std::endl;
@@ -34,11 +37,11 @@ bool Player::SkillA(Monster* monster)
     }
     else
     {
-        dmg = mul * this->GetDmg() - monster->GetDef();
-        if (dmg < 0) dmg = 0;
-
         std::cout << "[ " << this->GetName() << "이(가) "
             << monster->GetName() << "에게 스킬A 사용! ]" << std::endl;
+
+        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+        if (dmg < 0) dmg = 0;
 
         this->SetMp(this->GetMp() - needMana);
         monster->HpShieldManager(dmg);
@@ -54,6 +57,7 @@ bool Player::SkillB(Monster* monster)
     int mul = 3;
     int needMana = 30;
 
+    setColor(RED);
     if (this->GetMp() < needMana)
     {
         std::cout << "[ 마나가 부족합니다. ]" << std::endl;
@@ -62,11 +66,11 @@ bool Player::SkillB(Monster* monster)
 
     else
     {
-        dmg = mul * this->GetDmg() - monster->GetDef();
-        if (dmg < 0) dmg = 0;
-
         std::cout << "[ " << this->GetName() << "이(가) "
             << monster->GetName() << "에게 스킬B 사용! ]" << std::endl;
+
+        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+        if (dmg < 0) dmg = 0;
 
         monster->HpShieldManager(dmg);
         this->SetMp(this->GetMp() - needMana);
@@ -81,6 +85,7 @@ bool Player::SkillC(Monster* monster)
     int mul = 4;
     int needMana = 50;
 
+    setColor(RED);
     if (this->GetMp() < needMana)
     {
         std::cout << "[ 마나가 부족합니다. ]" << std::endl;
@@ -89,11 +94,11 @@ bool Player::SkillC(Monster* monster)
 
     else
     {
-        dmg = mul * this->GetDmg() - monster->GetDef();
-        if (dmg < 0) dmg = 0;
-
         std::cout << "[ " << this->GetName() << "이(가) "
             << monster->GetName() << "에게 스킬C 사용!] " << std::endl;
+
+        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+        if (dmg < 0) dmg = 0;
 
         monster->HpShieldManager(dmg);
         this->SetMp(this->GetMp() - needMana);
@@ -116,6 +121,7 @@ void Player::PrintInfo()
 }
 void Player::PrintUserInfo()
 {
+    setColor(YELLOW);
     std::cout << "==========================" << std::endl;
     std::cout << "성함 : " << this->GetUserName() << std::endl;
     std::cout << "나이 : " << this->GetUserAge() << std::endl;
@@ -125,6 +131,7 @@ void Player::PrintInventory()
 {
     if (this->userInventory.size() == 0)
     {
+        setColor(GREEN);
         std::cout << "[ 인벤토리가 비었습니다. ]" << std::endl;
     }
     for (int i = 0; i < this->userInventory.size(); i++)

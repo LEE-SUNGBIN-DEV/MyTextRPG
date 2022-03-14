@@ -17,13 +17,10 @@ public:
 	Equipment()
 	{
 		this->SetIsEquip(false);
-		this->SetItemPrice(0);
-		this->SetItemNum(1);
 		this->SetHp(0);
 		this->SetMp(0);
 		this->SetDmg(0);
 		this->SetDef(0);
-		this->SetItemName("NONE");
 	}
 
 	virtual void UseItem(Player* player);

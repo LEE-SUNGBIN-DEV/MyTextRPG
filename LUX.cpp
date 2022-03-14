@@ -38,6 +38,7 @@ bool LUX::Attack(Player* player)
 	int dmg;
 	int mul = 1;
 
+	setColor(BLUE);
 	std::cout << "[ " << this->GetName() << "이(가) "
 		<< player->GetName() << "에게 기본 공격! ]" << std::endl;
 
@@ -54,13 +55,11 @@ bool LUX::SkillA(Player* player)
 	int dmg;
 	int mul = 2;
 
+	setColor(BLUE);
 	std::cout << "[ " << this->GetName() << "이(가) "
-		<< player->GetName() << "에게 속박 사용! ]" << std::endl;
-	std::cout << "[ 스턴(1턴) ]" << std::endl;
+		<< player->GetName() << "에게 속박 사용! (스턴: 1턴) ]" << std::endl;
 
 	player->SetStunCnt(player->GetStunCnt() + 1);
-	this->SetShield(this->GetShield() + 7);
-	this->SetShieldCnt(this->GetShieldCnt() + 2);
 
 	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
 	if (dmg < 0) dmg = 0;
@@ -75,10 +74,10 @@ bool LUX::SkillB(Player* player)
 	int dmg;
 	int mul = 1;
 
-	std::cout << "[ " << this->GetName() << "이(가) 보호막 사용! ]" << std::endl;
-	std::cout << "[ 보호막(1턴) ]" << std::endl;
+	setColor(BLUE);
+	std::cout << "[ " << this->GetName() << "이(가) 보호막 사용! (쉴드+5: 2턴) ]" << std::endl;
 
-	this->SetShield(this->GetShield() + 7);
+	this->SetShield(this->GetShield() + 5);
 	this->SetShieldCnt(this->GetShieldCnt() + 2);
 
 	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
@@ -94,6 +93,7 @@ bool LUX::SkillC(Player* player)
 	int dmg;
 	int mul = 6;
 
+	setColor(BLUE);
 	std::cout << "[ " << this->GetName() << "이(가) "
 		<< player->GetName() << "에게 데마시아!! ]" << std::endl;
 
@@ -108,7 +108,10 @@ bool LUX::SkillC(Player* player)
 
 void LUX::DropItem(Player* player)
 {
+	setColor(GREEN);
 	std::cout << "[ 럭스의 지팡이를 얻었다! ]" << std::endl;
+	std::cout << "[ " << this->GetDropGold() << " 골드를 얻었다! ]" << std::endl;
+	std::cout << "[ 인벤토리를 확인해보자! ]" << std::endl;
 	player->AddItem(new Wand());
 	player->SetGold(player->GetGold() + this->GetDropGold());
 }

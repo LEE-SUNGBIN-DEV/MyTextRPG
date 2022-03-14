@@ -24,39 +24,12 @@ using namespace std;
 string gameTitle = "협곡의 쓰레기";
 Shop* shop = new Shop();
 
-// art
-enum COLOR{
-    BLACK,
-    DARK_BLUE,
-    DARK_GREEN,
-    DARK_SKYBLUE,
-    DARK_RED,
-    DARK_VOILET,
-    DAKR_YELLOW,
-    GRAY,
-    DARK_GRAY,
-    BLUE,
-    GREEN,
-    SKYBLUE,
-    RED,
-    VIOLET,
-    YELLOW,
-    WHITE,
-};
-
-void setColor(unsigned short text)
-{
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text);
-}
-
-
 // Input Control
 void GetCombatBuffer()
 {
     setColor(GREEN);
     cout << endl;
     cout << "▷ [ 혼내주자 : Enter ]" << endl;
-    setColor(WHITE);
     cin.get();
 }
 void GetOneBuffer()
@@ -64,7 +37,6 @@ void GetOneBuffer()
     setColor(GREEN);
     cout << endl;
     cout << "▷ [ 확인: Enter ]" << endl;
-    setColor(WHITE);
     cin.get();
 }
 void GetTwoBuffer()
@@ -72,7 +44,6 @@ void GetTwoBuffer()
     setColor(GREEN);
     cout << endl;
     cout << "▷ [ 확인: Enter ]" << endl;
-    setColor(WHITE);
     cin.get();
     cin.get();
 }
@@ -80,13 +51,11 @@ void SelectPrint()
 {
     setColor(GREEN);
     cout << "선택 >> ";
-    setColor(WHITE);
 }
 void InputPrint()
 {
     setColor(GREEN);
     cout << "입력 >> ";
-    setColor(WHITE);
 }
 
 // init
@@ -105,7 +74,6 @@ int MainTitle()
         cout << "[ 1. 게임 시작 ]" << endl;
         cout << "[ 2. 게임 종료 ]" << endl;
         SelectPrint();
-        setColor(WHITE);
 
         cin >> userSel;
 
@@ -128,13 +96,14 @@ void CreatePlayer(vector<Player*>& playerList, Player*& player)
     while (true)
     {
         std::system("cls");
-        setColor(YELLOW);
+        setColor(SKYBLUE);
         cout << "====================================" << endl;
         cout << "[ 직업을 선택하세요. ]" << endl;
+        setColor(YELLOW);
+        cout << "====================================" << endl;
         cout << "[ 1. 전사 ]" << endl;
         cout << "[ 2. 마법사 ]" << endl;
         cout << "====================================" << endl;
-        setColor(WHITE);
         SelectPrint();
 
         cin >> userSel;
@@ -159,7 +128,7 @@ void SetUserInfo(vector<Player*>& playerList, int playerIndex)
     int userAgeInput;
 
     std::system("cls");
-    setColor(YELLOW);
+    setColor(SKYBLUE);
     cout << "====================================" << endl;
     cout << "[ 성함을 입력하세요. ]" << endl;
     cout << "====================================" << endl;
@@ -167,7 +136,7 @@ void SetUserInfo(vector<Player*>& playerList, int playerIndex)
     InputPrint();
     cin >> userNameInput;
 
-    setColor(YELLOW);
+    setColor(SKYBLUE);
     cout << "====================================" << endl;
     cout << "[ 나이를 입력하세요. ]" << endl;
     cout << "====================================" << endl;
@@ -178,7 +147,8 @@ void SetUserInfo(vector<Player*>& playerList, int playerIndex)
     playerList[playerIndex]->SetUserInfo(userNameInput, userAgeInput);
 
     std::system("cls");
-    setColor(YELLOW);
+    setColor(SKYBLUE);
+    cout << "==========================" << endl;
     cout << "[ 유저 정보 ]" << endl;
     playerList[playerIndex]->PrintUserInfo();
 
@@ -191,7 +161,7 @@ void SetCharInfo(vector<Player*>& playerList, int playerIndex)
     string userInput;
 
     std::system("cls");
-    setColor(YELLOW);
+    setColor(SKYBLUE);
     cout << "====================================" << endl;
     cout << "[ 닉네임을 입력하세요. ]" << endl;
     cout << "====================================" << endl;
@@ -201,11 +171,12 @@ void SetCharInfo(vector<Player*>& playerList, int playerIndex)
     playerList[playerIndex]->SetName(userInput);
 
     std::system("cls");
-    setColor(YELLOW);
+    setColor(SKYBLUE);
     cout << "====================================" << endl;
     cout << "[ 캐릭터 세팅 완료 ]" << endl;
     cout << "====================================" << endl;
     playerList[playerIndex]->PrintInfo();
+    setColor(RED);
     cout << "====================================" << endl;
     cout << "[ 회복 물약 1개가 지급되었습니다. ]" << endl;
     cout << "[ 마나 물약 1개가 지급되었습니다. ]" << endl;
@@ -482,7 +453,7 @@ void CombatMenu(Player* player, Monster* monster)
 
         if (!monster->GetAlive())
         {
-            setColor(YELLOW);
+            setColor(RED);
             player->InitHp();
             player->InitMp();
             cout << "[ 전투 종료 : 승리]" << endl;
@@ -508,7 +479,7 @@ void CombatMenu(Player* player, Monster* monster)
 
         if (!player->GetAlive())
         {
-            setColor(YELLOW);
+            setColor(BLUE);
             cout << "[ 전투 종료 : 패배] " << endl;
             GetTwoBuffer();
             return;
@@ -572,6 +543,7 @@ void Chapter1(Player* player, int* _progress)
             std::cout << "==========================" << std::endl;
             monster->DropItem(player);
             delete(monster);
+            setColor(SKYBLUE);
             std::cout << "==========================" << std::endl;
             std::cout << "Chapter " << *_progress << std::endl;
             std::cout << "[서폿 럭스] 클리어" << std::endl;
@@ -627,6 +599,7 @@ void Chapter2(Player* player, int* _progress)
             std::cout << "==========================" << std::endl;
             monster->DropItem(player);
             delete(monster);
+            setColor(SKYBLUE);
             std::cout << "==========================" << std::endl;
             std::cout << "Chapter " << *_progress << std::endl;
             std::cout << "[탑 베인] 클리어" << std::endl;
@@ -683,6 +656,7 @@ void Chapter3(Player* player, int* _progress)
             std::cout << "==========================" << std::endl;
             monster->DropItem(player);
             delete(monster);
+            setColor(SKYBLUE);
             std::cout << "==========================" << std::endl;
             std::cout << "Chapter " << *_progress << std::endl;
             std::cout << "[미드 야스오] 클리어" << std::endl;
@@ -725,7 +699,7 @@ void Chapter4(Player* player, int* _progress)
         std::cout << "[정글 마스터이]" << std::endl;
         std::cout << "==========================" << std::endl;
         setColor(YELLOW);
-        std::cout << " \"좀만 버티셈 성장 좀만 하고 감\" " << std::endl;
+        std::cout << " \"좀만 버티셈 성장만 하고 감\" " << std::endl;
 
         GetCombatBuffer();
         CombatMenu(player, monster);
@@ -738,6 +712,7 @@ void Chapter4(Player* player, int* _progress)
             std::cout << "==========================" << std::endl;
             monster->DropItem(player);
             delete(monster);
+            setColor(SKYBLUE);
             std::cout << "==========================" << std::endl;
             std::cout << "Chapter " << *_progress << std::endl;
             std::cout << "[정글 마스터이] 클리어" << std::endl;

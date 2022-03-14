@@ -5,6 +5,7 @@ void MpPotion::UseItem(Player* player)
 {
     int value = 50;
 
+    setColor(VIOLET);
     if (this->GetItemNum() > 0)
     {
         if (player->GetMp() <= (player->GetMaxMp() - value))

@@ -25,7 +25,7 @@ public:
     {
         this->SetItemName("NONE");
         this->SetItemType(ENUM_ITEM_NONE);
-        this->SetItemNum(0);
+        this->SetItemNum(1);
         this->SetItemPrice(0);
     }
 

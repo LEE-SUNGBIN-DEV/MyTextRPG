@@ -4,6 +4,7 @@
 // 출력
 void Equipment::PrintItem()
 {
+	setColor(VIOLET);
 	std::cout << "--------------------------------" << std::endl;
 	std::cout << "[" << this->GetItemName() << "] "
 		<< "[" << this->GetItemNum() << "] ";
@@ -19,6 +20,7 @@ void Equipment::PrintItem()
 }
 void Equipment::PrintItem(int _index)
 {
+	setColor(VIOLET);
 	std::cout << "--------------------------------" << std::endl;
 	std::cout << "[슬롯 번호: " << _index << "] "
 		<< "[" << this->GetItemName() << "] "
@@ -37,6 +39,7 @@ void Equipment::PrintItem(int _index)
 // 기능 함수
 void Equipment::UseItem(Player* player)
 {
+	setColor(VIOLET);
 	// 장착중
 	if (this->GetIsEquip())
 	{

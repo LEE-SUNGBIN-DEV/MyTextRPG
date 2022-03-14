@@ -36,13 +36,14 @@ void Monster::RandomAttack(Player* player)
 bool Monster::Attack(Player* player)
 {
     int dmg;
+    int mul = 1;
 
-    dmg = this->GetDmg() - player->GetDef();
-
-    if (dmg < 0) dmg = 0;
-
+    setColor(BLUE);
     std::cout << "[ " << this->GetName() << "이(가) "
         << player->GetName() << "에게 기본 공격! ]" << std::endl;
+
+    dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+    if (dmg < 0) dmg = 0;
 
     player->HpShieldManager(dmg);
     this->TurnManager();
@@ -57,18 +58,19 @@ bool Monster::SkillA(Player* player)
 
     if (this->GetMp() < needMana)
     {
+        setColor(BLUE);
         std::cout << "[ 마나가 부족합니다. ]" << std::endl;
         return false;
     }
 
     else
     {
-        dmg = mul * this->GetDmg() - player->GetDef();
-
-        if (dmg < 0) dmg = 0;
-
+        setColor(BLUE);
         std::cout << "[ " << this->GetName() << "이(가) "
             << player->GetName() << "에게 스킬A를 사용! ]" << std::endl;
+
+        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+        if (dmg < 0) dmg = 0;
 
         this->SetMp(this->GetMp() - needMana);
         player->HpShieldManager(dmg);
@@ -85,18 +87,19 @@ bool Monster::SkillB(Player* player)
 
     if (this->GetMp() < needMana)
     {
+        setColor(BLUE);
         std::cout << "[ 마나가 부족합니다. ]" << std::endl;
         return false;
     }
 
     else
     {
-        dmg = mul * this->GetDmg() - player->GetDef();
-
-        if (dmg < 0) dmg = 0;
-
+        setColor(BLUE);
         std::cout << "[ " << this->GetName() << "이(가) "
             << player->GetName() << "에게 스킬B를 사용! ]" << std::endl;
+
+        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+        if (dmg < 0) dmg = 0;
 
         this->SetMp(this->GetMp() - needMana);
         player->HpShieldManager(dmg);
@@ -113,18 +116,19 @@ bool Monster::SkillC(Player* player)
 
     if (this->GetMp() < needMana)
     {
+        setColor(BLUE);
         std::cout << "[ 마나가 부족합니다. ]" << std::endl;
         return false;
     }
 
     else
     {
-        dmg = mul * this->GetDmg() - player->GetDef();
-
-        if (dmg < 0) dmg = 0;
-
+        setColor(BLUE);
         std::cout << "[ " << this->GetName() << "이(가) "
             << player->GetName() << "에게 스킬C를 사용! ]" << std::endl;
+
+        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+        if (dmg < 0) dmg = 0;
 
         this->SetMp(this->GetMp() - needMana);
         player->HpShieldManager(dmg);

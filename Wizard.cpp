@@ -10,11 +10,12 @@ bool Wizard::Attack(Monster* monster)
     int dmg;
     int mul = 1;
 
-    dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
-    if (dmg < 0) dmg = 0;
-
+    setColor(RED);
     std::cout << "[ " << this->GetName() << "이(가) "
         << monster->GetName() << "에게 기본 공격! ]" << std::endl;
+
+    dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+    if (dmg < 0) dmg = 0;
 
     monster->HpShieldManager(dmg);
     this->TurnManager();
@@ -27,6 +28,7 @@ bool Wizard::SkillA(Monster* monster)
     int mul = 2;
     int needMana = 20;
 
+    setColor(RED);
     if (this->GetMp() < needMana)
     {
         std::cout << "[ 마나가 부족합니다. ]" << std::endl;
@@ -34,11 +36,11 @@ bool Wizard::SkillA(Monster* monster)
     }
     else
     {
-        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
-        if (dmg < 0) dmg = 0;
-
         std::cout << "[ " << this->GetName() << "이(가) "
             << monster->GetName() << "에게 파이어 볼 사용! ]" << std::endl;
+
+        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+        if (dmg < 0) dmg = 0;
 
         this->SetMp(this->GetMp() - needMana);
         monster->HpShieldManager(dmg);
@@ -54,6 +56,7 @@ bool Wizard::SkillB(Monster* monster)
     int mul = 1;
     int needMana = 30;
 
+    setColor(RED);
     if (this->GetMp() < needMana)
     {
         std::cout << "[ 마나가 부족합니다. ]" << std::endl;
@@ -62,16 +65,11 @@ bool Wizard::SkillB(Monster* monster)
 
     else
     {
-        this->SetDmgBuff(this->GetDmgBuff() + 5);
-        this->SetDmgBuffCnt(this->GetDmgBuffCnt() + 2);
+        std::cout << "[ " << this->GetName() << "이(가) "
+            << monster->GetName() << "에게 아이스 스피어 사용! (빙결: 2턴) ]" << std::endl;
 
         dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
-
         if (dmg < 0) dmg = 0;
-
-        std::cout << "[ " << this->GetName() << "이(가) "
-            << monster->GetName() << "에게 아이스 스피어 사용! ]" << std::endl;
-        std::cout << "[ 빙결(2턴) ]" << std::endl;
 
         monster->SetStunCnt(2);
         monster->HpShieldManager(dmg);
@@ -87,6 +85,7 @@ bool Wizard::SkillC(Monster* monster)
     int mul = 5;
     int needMana = 50;
 
+    setColor(RED);
     if (this->GetMp() < needMana)
     {
         std::cout << "[ 마나가 부족합니다. ]" << std::endl;
@@ -95,11 +94,11 @@ bool Wizard::SkillC(Monster* monster)
 
     else
     {
-        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
-        if (dmg < 0) dmg = 0;
-
         std::cout << "[ " << this->GetName() << "이(가) "
             << monster->GetName() << "에게 메테오 사용!] " << std::endl;
+
+        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+        if (dmg < 0) dmg = 0;
 
         monster->HpShieldManager(dmg);
         this->SetMp(this->GetMp() - needMana);
