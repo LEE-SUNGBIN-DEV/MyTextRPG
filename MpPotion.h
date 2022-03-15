@@ -14,6 +14,7 @@ public:
 		this->SetItemType(ENUM_ITEM_POTION);
 		this->SetItemPrice(20);
 		this->SetItemName("마나 물약");
+		this->SetOriginName(this->GetItemName());
 	}
 
 	MpPotion(int _itemNum) : MpPotion()

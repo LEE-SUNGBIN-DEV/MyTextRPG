@@ -5,7 +5,7 @@ void HpPotion::UseItem(Player* player)
 {
     int value = 80;
 
-    setColor(VIOLET);
+    setColor(SKYBLUE);
     if (this->GetItemNum() > 0)
     {
         if (player->GetHp() <= (player->GetMaxHp() - value))
@@ -17,7 +17,7 @@ void HpPotion::UseItem(Player* player)
             player->SetHp(player->GetMaxHp());
         }
 
-        std::cout << this->GetItemName() << " 아이템을 사용하였습니다." << std::endl;
+        std::cout << " [ " << this->GetItemName() << " 아이템을 사용하였습니다. ]" << std::endl;
     }
 
     else

@@ -1,6 +1,6 @@
 #include <random>
-#include "MasterYi.h"
 #include "Player.h"
+#include "MasterYi.h"
 
 // --------------------------------- CLASS
 // --------------------------------- MasterYi
@@ -41,7 +41,8 @@ bool MasterYi::Attack(Player* player)
 	std::cout << "[ " << this->GetName() << "이(가) "
 		<< player->GetName() << "에게 기본 공격! ]" << std::endl;
 
-	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+		- (player->GetDef() + player->GetDefBuff()));
 	if (dmg < 0) dmg = 0;
 
 	player->SetHp(player->GetHp() - dmg);
@@ -61,7 +62,8 @@ bool MasterYi::SkillA(Player* player)
 	this->SetDmgBuff(this->GetDmgBuff() + 10);
 	this->SetDmgBuffCnt(this->GetDmgBuffCnt() + 2);
 
-	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+		- (player->GetDef() + player->GetDefBuff()));
 	if (dmg < 0) dmg = 0;
 
 	player->SetHp(player->GetHp() - dmg);
@@ -82,7 +84,8 @@ bool MasterYi::SkillB(Player* player)
 	this->SetDefBuff(this->GetDefBuff() + 5);
 	this->SetDefBuffCnt(this->GetDefBuffCnt() + 2);
 
-	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+		- (player->GetDef() + player->GetDefBuff()));
 	if (dmg < 0) dmg = 0;
 
 	player->SetHp(player->GetHp() - dmg);
@@ -103,7 +106,8 @@ bool MasterYi::SkillC(Player* player)
 	this->SetDefBuff(this->GetDefBuff() + 5);
 	this->SetDefBuffCnt(this->GetDefBuffCnt() + 3);
 
-	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+		- (player->GetDef() + player->GetDefBuff()));
 	if (dmg < 0) dmg = 0;
 
 	player->SetHp(player->GetHp() - dmg);

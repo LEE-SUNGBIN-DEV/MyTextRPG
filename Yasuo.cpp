@@ -1,9 +1,11 @@
 #include <random>
-#include "Yasuo.h"
 #include "Player.h"
+#include "Yasuo.h"
 #include "TitleScientist.h"
+
 // --------------------------------- CLASS
 // --------------------------------- YASUO
+
 // 공격 함수
 void Yasuo::RandomAttack(Player* player)
 {
@@ -38,10 +40,11 @@ bool Yasuo::Attack(Player* player)
 	int mul = 1;
 
 	setColor(BLUE);
-	std::cout << "[ " << this->GetName() << "이(가) "
+	std::cout << " [ " << this->GetName() << "이(가) "
 		<< player->GetName() << "에게 기본 공격! ]" << std::endl;
 
-	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+		- (player->GetDef() + player->GetDefBuff()));
 	if (dmg < 0) dmg = 0;
 
 	player->SetHp(player->GetHp() - dmg);
@@ -55,10 +58,11 @@ bool Yasuo::SkillA(Player* player)
 	int mul = 2;
 
 	setColor(BLUE);
-	std::cout << "[ " << this->GetName() << "이(가) "
+	std::cout << " [ " << this->GetName() << "이(가) "
 		<< player->GetName() << "에게 강철 폭풍 사용! ]" << std::endl;
 
-	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+		- (player->GetDef() + player->GetDefBuff()));
 	if (dmg < 0) dmg = 0;
 
 	player->SetHp(player->GetHp() - dmg);
@@ -72,13 +76,14 @@ bool Yasuo::SkillB(Player* player)
 	int mul = 1;
 
 	setColor(BLUE);
-	std::cout << "[ " << this->GetName()
+	std::cout << " [ " << this->GetName()
 		<< "이(가) 바람장막 사용! (쉴드+50: 2턴) ]" << std::endl;
 
 	this->SetShield(this->GetShield() + 50);
 	this->SetShieldCnt(this->GetShieldCnt() + 2);
 
-	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+		- (player->GetDef() + player->GetDefBuff()));
 	if (dmg < 0) dmg = 0;
 
 	player->SetHp(player->GetHp() - dmg);
@@ -92,10 +97,11 @@ bool Yasuo::SkillC(Player* player)
 	int mul = 6;
 
 	setColor(BLUE);
-	std::cout << "[ " << this->GetName() << "이(가) "
+	std::cout << " [ " << this->GetName() << "이(가) "
 		<< player->GetName() << "에게 우리에게돈!!! ]" << std::endl;
 
-	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+		- (player->GetDef() + player->GetDefBuff()));
 	if (dmg < 0) dmg = 0;
 
 	player->SetHp(player->GetHp() - dmg);
@@ -104,12 +110,13 @@ bool Yasuo::SkillC(Player* player)
 	return true;
 }
 
+// 기능 함수
 void Yasuo::DropItem(Player* player)
 {
-	setColor(GREEN);
-	std::cout << "[ 칭호: 과학자를 얻었다! ]" << std::endl;
-	std::cout << "[ " << this->GetDropGold() << " 골드를 얻었다! ]" << std::endl;
-	std::cout << "[ 인벤토리를 확인해보자! ]" << std::endl;
+	setColor(SKYBLUE);
+	std::cout << " [ 칭호: 과학자를 얻었다! ]" << std::endl;
+	std::cout << " [ " << this->GetDropGold() << " 골드를 얻었다! ]" << std::endl;
+	std::cout << " [ 인벤토리를 확인해보자! ]" << std::endl;
 	player->AddItem(new TitleScientist());
 	player->SetGold(player->GetGold() + this->GetDropGold());
 }

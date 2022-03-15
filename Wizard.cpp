@@ -4,17 +4,18 @@
 // --------------------------------- CLASS
 // --------------------------------- WIZARD
 
-// ----------------------공격 함수
+// 공격 함수
 bool Wizard::Attack(Monster* monster)
 {
     int dmg;
     int mul = 1;
 
     setColor(RED);
-    std::cout << "[ " << this->GetName() << "이(가) "
+    std::cout << " [ " << this->GetName() << "이(가) "
         << monster->GetName() << "에게 기본 공격! ]" << std::endl;
 
-    dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+    dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+        - (monster->GetDef() + monster->GetDefBuff()));
     if (dmg < 0) dmg = 0;
 
     monster->HpShieldManager(dmg);
@@ -31,15 +32,16 @@ bool Wizard::SkillA(Monster* monster)
     setColor(RED);
     if (this->GetMp() < needMana)
     {
-        std::cout << "[ 마나가 부족합니다. ]" << std::endl;
+        std::cout << " [ 마나가 부족합니다. ]" << std::endl;
         return false;
     }
     else
     {
-        std::cout << "[ " << this->GetName() << "이(가) "
+        std::cout << " [ " << this->GetName() << "이(가) "
             << monster->GetName() << "에게 파이어 볼 사용! ]" << std::endl;
 
-        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+        dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+            - (monster->GetDef() + monster->GetDefBuff()));
         if (dmg < 0) dmg = 0;
 
         this->SetMp(this->GetMp() - needMana);
@@ -59,16 +61,17 @@ bool Wizard::SkillB(Monster* monster)
     setColor(RED);
     if (this->GetMp() < needMana)
     {
-        std::cout << "[ 마나가 부족합니다. ]" << std::endl;
+        std::cout << " [ 마나가 부족합니다. ]" << std::endl;
         return false;
     }
 
     else
     {
-        std::cout << "[ " << this->GetName() << "이(가) "
+        std::cout << " [ " << this->GetName() << "이(가) "
             << monster->GetName() << "에게 아이스 스피어 사용! (빙결: 2턴) ]" << std::endl;
 
-        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+        dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+            - (monster->GetDef() + monster->GetDefBuff()));
         if (dmg < 0) dmg = 0;
 
         monster->SetStunCnt(2);
@@ -88,16 +91,17 @@ bool Wizard::SkillC(Monster* monster)
     setColor(RED);
     if (this->GetMp() < needMana)
     {
-        std::cout << "[ 마나가 부족합니다. ]" << std::endl;
+        std::cout << " [ 마나가 부족합니다. ]" << std::endl;
         return false;
     }
 
     else
     {
-        std::cout << "[ " << this->GetName() << "이(가) "
+        std::cout << " [ " << this->GetName() << "이(가) "
             << monster->GetName() << "에게 메테오 사용!] " << std::endl;
 
-        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+        dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+            - (monster->GetDef() + monster->GetDefBuff()));
         if (dmg < 0) dmg = 0;
 
         monster->HpShieldManager(dmg);

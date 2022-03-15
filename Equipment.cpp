@@ -1,13 +1,15 @@
 #include "Equipment.h"
 #include "Player.h"
 
+// --------------------------------- CLASS
+// --------------------------------- EQUIPMENT
 // 출력
 void Equipment::PrintItem()
 {
-	setColor(VIOLET);
+	setColor(SKYBLUE);
 	std::cout << "--------------------------------" << std::endl;
-	std::cout << "[" << this->GetItemName() << "] "
-		<< "[" << this->GetItemNum() << "] ";
+	std::cout << " [" << this->GetItemName() << "] "
+		<< "[ 수량: " << this->GetItemNum() << "] ";
 	if (this->GetIsEquip())
 	{
 		std::cout << "[ 장착중 ]" << std::endl;
@@ -20,11 +22,11 @@ void Equipment::PrintItem()
 }
 void Equipment::PrintItem(int _index)
 {
-	setColor(VIOLET);
+	setColor(SKYBLUE);
 	std::cout << "--------------------------------" << std::endl;
-	std::cout << "[슬롯 번호: " << _index << "] "
+	std::cout << " [ 슬롯 번호: " << _index << "] "
 		<< "[" << this->GetItemName() << "] "
-		<< "[" << this->GetItemNum() << "] ";
+		<< "[ 수량: " << this->GetItemNum() << "] ";
 	if (this->GetIsEquip())
 	{
 		std::cout << "[ 장착중 ]" << std::endl;
@@ -39,7 +41,7 @@ void Equipment::PrintItem(int _index)
 // 기능 함수
 void Equipment::UseItem(Player* player)
 {
-	setColor(VIOLET);
+	setColor(SKYBLUE);
 	// 장착중
 	if (this->GetIsEquip())
 	{
@@ -50,7 +52,7 @@ void Equipment::UseItem(Player* player)
 		player->SetHp(player->GetHp() - this->GetHp());
 		player->SetMaxMp(player->GetMaxMp() - this->GetMp());
 		player->SetMp(player->GetMp() - this->GetMp());
-		std::cout << "[ " << this->GetItemName() << "아이템을 장착 해제하였습니다. ]" << std::endl;
+		std::cout << " [ " << this->GetItemName() << "아이템을 장착 해제하였습니다. ]" << std::endl;
 	}
 
 	// 미장착
@@ -63,40 +65,6 @@ void Equipment::UseItem(Player* player)
 		player->SetHp(player->GetHp() + this->GetHp());
 		player->SetMaxMp(player->GetMaxMp() + this->GetMp());
 		player->SetMp(player->GetMp() + this->GetMp());
-		std::cout << "[ " << this->GetItemName() << "아이템을 장착하였습니다. ]" << std::endl;
+		std::cout << " [ " << this->GetItemName() << "아이템을 장착하였습니다. ]" << std::endl;
 	}
-}
-
-// get
-bool Equipment::GetIsEquip() { return this->isEquip; }
-int Equipment::GetDmg() { return this->dmg; }
-int Equipment::GetDef() { return this->def; }
-int Equipment::GetHp() { return this->hp; }
-int Equipment::GetMp() { return this->mp; }
-
-// set
-void Equipment::SetIsEquip(bool _isEquip)
-{
-	this->isEquip = _isEquip;
-	return;
-}
-void Equipment::SetDmg(int _dmg)
-{
-	this->dmg = _dmg;
-	return;
-}
-void Equipment::SetDef(int _def)
-{
-	this->def = _def;
-	return;
-}
-void Equipment::SetHp(int _hp)
-{
-	this->hp = _hp;
-	return;
-}
-void Equipment::SetMp(int _mp)
-{
-	this->mp = _mp;
-	return;
 }

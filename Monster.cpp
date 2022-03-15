@@ -5,7 +5,7 @@
 // --------------------------------- CLASS
 // --------------------------------- MONSTER
 
-// ----------------------공격 함수
+// 공격 함수
 void Monster::RandomAttack(Player* player)
 {
     int randNum;
@@ -39,10 +39,11 @@ bool Monster::Attack(Player* player)
     int mul = 1;
 
     setColor(BLUE);
-    std::cout << "[ " << this->GetName() << "이(가) "
+    std::cout << " [ " << this->GetName() << "이(가) "
         << player->GetName() << "에게 기본 공격! ]" << std::endl;
 
-    dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+    dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+        - (player->GetDef() + player->GetDefBuff()));
     if (dmg < 0) dmg = 0;
 
     player->HpShieldManager(dmg);
@@ -59,17 +60,18 @@ bool Monster::SkillA(Player* player)
     if (this->GetMp() < needMana)
     {
         setColor(BLUE);
-        std::cout << "[ 마나가 부족합니다. ]" << std::endl;
+        std::cout << " [ 마나가 부족합니다. ]" << std::endl;
         return false;
     }
 
     else
     {
         setColor(BLUE);
-        std::cout << "[ " << this->GetName() << "이(가) "
+        std::cout << " [ " << this->GetName() << "이(가) "
             << player->GetName() << "에게 스킬A를 사용! ]" << std::endl;
 
-        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+        dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+            - (player->GetDef() + player->GetDefBuff()));
         if (dmg < 0) dmg = 0;
 
         this->SetMp(this->GetMp() - needMana);
@@ -88,17 +90,18 @@ bool Monster::SkillB(Player* player)
     if (this->GetMp() < needMana)
     {
         setColor(BLUE);
-        std::cout << "[ 마나가 부족합니다. ]" << std::endl;
+        std::cout << " [ 마나가 부족합니다. ]" << std::endl;
         return false;
     }
 
     else
     {
         setColor(BLUE);
-        std::cout << "[ " << this->GetName() << "이(가) "
+        std::cout << " [ " << this->GetName() << "이(가) "
             << player->GetName() << "에게 스킬B를 사용! ]" << std::endl;
 
-        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+        dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+            - (player->GetDef() + player->GetDefBuff()));
         if (dmg < 0) dmg = 0;
 
         this->SetMp(this->GetMp() - needMana);
@@ -117,17 +120,18 @@ bool Monster::SkillC(Player* player)
     if (this->GetMp() < needMana)
     {
         setColor(BLUE);
-        std::cout << "[ 마나가 부족합니다. ]" << std::endl;
+        std::cout << " [ 마나가 부족합니다. ]" << std::endl;
         return false;
     }
 
     else
     {
         setColor(BLUE);
-        std::cout << "[ " << this->GetName() << "이(가) "
+        std::cout << " [ " << this->GetName() << "이(가) "
             << player->GetName() << "에게 스킬C를 사용! ]" << std::endl;
 
-        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+        dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+            - (player->GetDef() + player->GetDefBuff()));
         if (dmg < 0) dmg = 0;
 
         this->SetMp(this->GetMp() - needMana);
@@ -138,24 +142,22 @@ bool Monster::SkillC(Player* player)
     }
 }
 
-// ----------------------기능 함수
+// 기능 함수
+void Monster::DropItem(Player* player)
+{
+    player->SetGold(player->GetGold() + this->GetDropGold());
+}
+int Monster::GetDropGold()
+{
+    return this->dropGold;
+}
+
 // 출력
 void Monster::PrintInfo()
 {
     Character::PrintInfo();
 
     return;
-}
-
-void Monster::DropItem(Player* player)
-{
-    player->SetGold(player->GetGold() + this->GetDropGold());
-}
-
-// get
-int Monster::GetDropGold()
-{
-    return this->dropGold;
 }
 
 // set

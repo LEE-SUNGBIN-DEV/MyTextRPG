@@ -3,8 +3,10 @@
 #include "HpPotion.h"
 #include "MpPotion.h"
 #include "Player.h"
+
 // --------------------------------- CLASS
 // --------------------------------- SHOP
+
 void Shop::PrintShopList()
 {
 	for (int i = 0; i < this->sellList.size(); i++)
@@ -14,10 +16,9 @@ void Shop::PrintShopList()
 
 	return;
 }
-
 void Shop::BuyItem(Player* player, int _sel)
 {
-	setColor(VIOLET);
+	setColor(SKYBLUE);
 	// 해당 아이템을 구매하기에 충분한 돈이 있으면
 	if (player->GetGold() >= this->sellList[_sel]->GetItemPrice())
 	{
@@ -34,13 +35,13 @@ void Shop::BuyItem(Player* player, int _sel)
 		{
 			player->AddItem(new MpPotion());
 		}
-		std::cout << "[ " << this->sellList[_sel]->GetItemName() << "을 구매하였습니다. ]" << std::endl;
-		std::cout << "[ 잔액: " << player->GetGold() << " ]" << std::endl;
+		std::cout << " [ " << this->sellList[_sel]->GetItemName() << "을 구매하였습니다. ]" << std::endl;
+		std::cout << " [ 잔액: " << player->GetGold() << " ]" << std::endl;
 	}
 
 	else
 	{
-		std::cout << "[ 잔액이 부족합니다. ]" << std::endl;
+		std::cout << " [ 잔액이 부족합니다. ]" << std::endl;
 	}
 
 	return;

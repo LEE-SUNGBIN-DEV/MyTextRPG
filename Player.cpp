@@ -5,17 +5,18 @@
 // --------------------------------- CLASS
 // --------------------------------- PLAYER
 
-// ----------------------공격 함수
+// 공격 함수
 bool Player::Attack(Monster* monster)
 {
     int dmg;
     int mul = 1;
 
     setColor(RED);
-    std::cout << "[ " << this->GetName() << "이(가) "
+    std::cout << " [ " << this->GetName() << "이(가) "
         << monster->GetName() << "에게 기본 공격! ]" << std::endl;
 
-    dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+    dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+        - (monster->GetDef() + monster->GetDefBuff()));
     if (dmg < 0) dmg = 0;
 
     monster->HpShieldManager(dmg);
@@ -32,15 +33,16 @@ bool Player::SkillA(Monster* monster)
     setColor(RED);
     if (this->GetMp() < needMana)
     {
-        std::cout << "[ 마나가 부족합니다. ]" << std::endl;
+        std::cout << " [ 마나가 부족합니다. ]" << std::endl;
         return false;
     }
     else
     {
-        std::cout << "[ " << this->GetName() << "이(가) "
+        std::cout << " [ " << this->GetName() << "이(가) "
             << monster->GetName() << "에게 스킬A 사용! ]" << std::endl;
 
-        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+        dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+            - (monster->GetDef() + monster->GetDefBuff()));
         if (dmg < 0) dmg = 0;
 
         this->SetMp(this->GetMp() - needMana);
@@ -60,16 +62,17 @@ bool Player::SkillB(Monster* monster)
     setColor(RED);
     if (this->GetMp() < needMana)
     {
-        std::cout << "[ 마나가 부족합니다. ]" << std::endl;
+        std::cout << " [ 마나가 부족합니다. ]" << std::endl;
         return false;
     }
 
     else
     {
-        std::cout << "[ " << this->GetName() << "이(가) "
+        std::cout << " [ " << this->GetName() << "이(가) "
             << monster->GetName() << "에게 스킬B 사용! ]" << std::endl;
 
-        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+        dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+            - (monster->GetDef() + monster->GetDefBuff()));
         if (dmg < 0) dmg = 0;
 
         monster->HpShieldManager(dmg);
@@ -88,16 +91,17 @@ bool Player::SkillC(Monster* monster)
     setColor(RED);
     if (this->GetMp() < needMana)
     {
-        std::cout << "[ 마나가 부족합니다. ]" << std::endl;
+        std::cout << " [ 마나가 부족합니다. ]" << std::endl;
         return false;
     }
 
     else
     {
-        std::cout << "[ " << this->GetName() << "이(가) "
+        std::cout << " [ " << this->GetName() << "이(가) "
             << monster->GetName() << "에게 스킬C 사용!] " << std::endl;
 
-        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+        dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+            - (monster->GetDef() + monster->GetDefBuff()));
         if (dmg < 0) dmg = 0;
 
         monster->HpShieldManager(dmg);
@@ -108,35 +112,49 @@ bool Player::SkillC(Monster* monster)
     }
 }
 
-// ----------------------기능 함수
-// 정보 출력
+// 기능 함수
+// 출력
 void Player::PrintInfo()
 {
     Character::PrintInfo();
-    std::cout << "[ 직업: " << this->GetTypeName() << " ]" << std::endl;
-    std::cout << "[ 소지금: " << this->GetGold() << " ]" << std::endl;
-    std::cout << "[ 경험치: " << this->GetExp() << " ]" << std::endl;
+    std::cout << " [ 직업: " << this->GetTypeName() << " ]" << std::endl;
+    std::cout << " [ 소지금: " << this->GetGold() << " ]" << std::endl;
+    std::cout << " [ 경험치: " << this->GetExp() << " ]" << std::endl;
 
     return;
 }
 void Player::PrintUserInfo()
 {
-    setColor(YELLOW);
-    std::cout << "==========================" << std::endl;
-    std::cout << "성함 : " << this->GetUserName() << std::endl;
-    std::cout << "나이 : " << this->GetUserAge() << std::endl;
-    std::cout << "==========================" << std::endl;
+    setColor(SKYBLUE);
+    std::cout << " [ 성함 : " << this->GetUserName() << " ]" << std::endl;
+    std::cout << " [ 나이 : " << this->GetUserAge() << " ]" << std::endl;
 }
 void Player::PrintInventory()
 {
+    setColor(SKYBLUE);
     if (this->userInventory.size() == 0)
     {
         setColor(GREEN);
-        std::cout << "[ 인벤토리가 비었습니다. ]" << std::endl;
+        std::cout << " [ 인벤토리가 비었습니다. ]" << std::endl;
     }
     for (int i = 0; i < this->userInventory.size(); i++)
     {
         this->userInventory[i]->PrintItem(i);
+    }
+}
+void Player::PrintInventoryEquipment()
+{
+    setColor(SKYBLUE);
+    if (this->userInventory.size() == 0)
+    {
+        std::cout << " [ 인벤토리가 비었습니다. ]" << std::endl;
+    }
+    for (int i = 0; i < this->userInventory.size(); i++)
+    {
+        if (this->userInventory[i]->GetItemType() == ENUM_ITEM_EQUIP)
+        {
+            this->userInventory[i]->PrintItem(i);
+        }
     }
 }
 
@@ -286,22 +304,62 @@ void Player::UseInventoryItem(int _index)
     }
 }
 
-// Get
+// get
 UserInfo Player::GetUserInfo() { return this->userInfo; }
 std::vector<Item*> Player::GetInventory() { return this->userInventory; }
-std::string Player::GetItemName(int i) { return this->userInventory[i]->GetItemName(); }
+std::string Player::GetItemName(int _index) { return this->userInventory[_index]->GetItemName(); }
+std::string Player::GetOriginName(int _index) { return this->userInventory[_index]->GetOriginName(); }
 std::string Player::GetTypeName() { return this->typeName; }
+int Player::GetItemDmg(int _index) { return this->userInventory[_index]->GetDmg(); }
+int Player::GetItemDef(int _index) { return this->userInventory[_index]->GetDef(); }
+int Player::GetItemHp(int _index) { return this->userInventory[_index]->GetHp(); }
+int Player::GetItemMp(int _index) { return this->userInventory[_index]->GetMp(); }
+int Player::GetItemNum(int _index) { return this->userInventory[_index]->GetItemNum(); }
+int Player::GetItemHoningLevel(int _index) { return this->userInventory[_index]->GetHoningLevel(); }
+bool Player::GetIsEquip(int _index) { return this->userInventory[_index]->GetIsEquip(); }
 std::string Player::GetUserName() { return this->userInfo.userName; }
 int Player::GetExp() { return this->exp; }
 int Player::GetUserAge() { return this->userInfo.userAge; }
-int Player::GetItemNum(int i) { return this->userInventory[i]->GetItemNum(); }
 int Player::GetPlayerType() { return this->playerType; }
 int Player::GetGold() { return this->gold; }
 std::string Player::GetSkillNameA() { return this->SkillNameA; }
 std::string Player::GetSkillNameB() { return this->SkillNameB; }
 std::string Player::GetSkillNameC() { return this->SkillNameC; }
 
-// Set Info
+// set
+void Player::SetItemHoningLevel(int _itemHoningLevel, int _index)
+{
+    this->userInventory[_index]->SetHoningLevel(_itemHoningLevel);
+    return;
+}
+void Player::SetItemName(std::string _itemName, int _index)
+{
+    this->userInventory[_index]->SetItemName(_itemName);
+}
+void Player::SetOriginName(std::string _originName, int _index)
+{
+    this->userInventory[_index]->SetOriginName(_originName);
+}
+void Player::SetItemDmg(int _dmg, int _index)
+{
+    this->userInventory[_index]->SetDmg(_dmg);
+}
+void Player::SetItemDef(int _def, int _index)
+{
+    this->userInventory[_index]->SetDef(_def);
+}
+void Player::SetItemHp(int _hp, int _index)
+{
+    this->userInventory[_index]->SetHp(_hp);
+}
+void Player::SetItemMp(int _mp, int _index)
+{
+    this->userInventory[_index]->SetMp(_mp);
+}
+void Player::SetIsEquip(bool _isEquip, int _index)
+{
+    this->userInventory[_index]->SetIsEquip(_isEquip);
+}
 void Player::SetUserInfo(std::string _name, int _age)
 {
     this->userInfo.userName = _name;

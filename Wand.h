@@ -16,5 +16,6 @@ public:
 		this->SetItemNum(1);
 		this->SetDmg(3);
 		this->SetItemName("럭스의 지팡이");
+		this->SetOriginName(this->GetItemName());
 	}
 };

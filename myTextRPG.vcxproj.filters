@@ -34,20 +34,8 @@
     <Filter Include="소스 파일\Main">
       <UniqueIdentifier>{ff310930-52ad-4da2-81a3-1ca9b5fbcf90}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Character\Monster">
-      <UniqueIdentifier>{21515447-c486-4b93-8b3e-e929ed8c426d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Character\Player">
-      <UniqueIdentifier>{55c1e320-0d16-4d17-9805-1a8d82e1a329}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Item\Equipment">
       <UniqueIdentifier>{0ecc780c-5897-4dd4-a1f0-0dd48b24bf1d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Character\Monster">
-      <UniqueIdentifier>{21289df5-10a1-4fca-a3df-1f99212d63c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Character\Player">
-      <UniqueIdentifier>{15cf5b20-b6a1-49a6-b552-ba029c2b5d4e}</UniqueIdentifier>
     </Filter>
     <Filter Include="헤더 파일\Item\Equipment">
       <UniqueIdentifier>{5f3183d3-d61d-4459-b354-183016c7d31d}</UniqueIdentifier>
@@ -72,41 +60,47 @@
     <ClCompile Include="Main.cpp">
       <Filter>소스 파일\Main</Filter>
     </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>소스 파일\Character\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="LUX.cpp">
-      <Filter>소스 파일\Character\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="MasterYi.cpp">
-      <Filter>소스 파일\Character\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="Vayne.cpp">
-      <Filter>소스 파일\Character\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="Yasuo.cpp">
-      <Filter>소스 파일\Character\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="Knight.cpp">
-      <Filter>소스 파일\Character\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>소스 파일\Character\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Wizard.cpp">
-      <Filter>소스 파일\Character\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Equipment.cpp">
-      <Filter>소스 파일\Item\Equipment</Filter>
-    </ClCompile>
-    <ClCompile Include="SunGlasses.cpp">
-      <Filter>소스 파일\Item\Equipment</Filter>
-    </ClCompile>
     <ClCompile Include="Wand.cpp">
       <Filter>소스 파일\Item\Equipment</Filter>
     </ClCompile>
     <ClCompile Include="TitleScientist.cpp">
       <Filter>소스 파일\Item\Equipment</Filter>
+    </ClCompile>
+    <ClCompile Include="Forge.cpp">
+      <Filter>소스 파일\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="Sword.cpp">
+      <Filter>소스 파일\Item\Equipment</Filter>
+    </ClCompile>
+    <ClCompile Include="Knight.cpp">
+      <Filter>소스 파일\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Wizard.cpp">
+      <Filter>소스 파일\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="SunGlasses.cpp">
+      <Filter>소스 파일\Item\Equipment</Filter>
+    </ClCompile>
+    <ClCompile Include="Equipment.cpp">
+      <Filter>소스 파일\Item\Equipment</Filter>
+    </ClCompile>
+    <ClCompile Include="LUX.cpp">
+      <Filter>소스 파일\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="MasterYi.cpp">
+      <Filter>소스 파일\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>소스 파일\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Vayne.cpp">
+      <Filter>소스 파일\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Yasuo.cpp">
+      <Filter>소스 파일\Character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,30 +119,6 @@
     <ClInclude Include="Character.h">
       <Filter>헤더 파일\Character</Filter>
     </ClInclude>
-    <ClInclude Include="Yasuo.h">
-      <Filter>헤더 파일\Character\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="Wizard.h">
-      <Filter>헤더 파일\Character\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Vayne.h">
-      <Filter>헤더 파일\Character\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>헤더 파일\Character\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>헤더 파일\Character\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="MasterYi.h">
-      <Filter>헤더 파일\Character\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="LUX.h">
-      <Filter>헤더 파일\Character\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="Knight.h">
-      <Filter>헤더 파일\Character\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Equipment.h">
       <Filter>헤더 파일\Item\Equipment</Filter>
     </ClInclude>
@@ -160,6 +130,36 @@
     </ClInclude>
     <ClInclude Include="Wand.h">
       <Filter>헤더 파일\Item\Equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="Forge.h">
+      <Filter>헤더 파일\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="Sword.h">
+      <Filter>헤더 파일\Item\Equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="Knight.h">
+      <Filter>헤더 파일\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>헤더 파일\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Wizard.h">
+      <Filter>헤더 파일\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="LUX.h">
+      <Filter>헤더 파일\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="MasterYi.h">
+      <Filter>헤더 파일\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>헤더 파일\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Vayne.h">
+      <Filter>헤더 파일\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Yasuo.h">
+      <Filter>헤더 파일\Character</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

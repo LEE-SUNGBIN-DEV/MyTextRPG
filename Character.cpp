@@ -5,6 +5,7 @@ void setColor(unsigned short text)
 {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text);
 }
+
 // --------------------------------- CLASS
 // --------------------------------- CHARACTER
 // 기능 함수
@@ -12,13 +13,13 @@ void Character::Rebirth()
 {
     setColor(YELLOW);
     this->SetAlive(true);
-    std::cout << "[ " << this->GetName() << "이(가) 부활하였습니다. ]" << std::endl;
+    std::cout << " [ " << this->GetName() << "이(가) 부활하였습니다. ]" << std::endl;
 }
 void Character::Death()
 {
     setColor(YELLOW);
     this->SetAlive(false);
-    std::cout << "[ " << this->GetName() << "이(가) 사망하였습니다. ]" << std::endl;
+    std::cout << " [ " << this->GetName() << "이(가) 사망하였습니다. ]" << std::endl;
 }
 void Character::InitHp()
 {
@@ -30,6 +31,7 @@ void Character::InitMp()
     this->SetMp(this->GetMaxMp());
     return;
 }
+
 // 관리 함수
 void Character::TurnManager()
 {
@@ -113,26 +115,26 @@ void Character::HpShieldManager(int _dmg)
 // 캐릭터 정보 출력
 void Character::PrintInfo()
 {
-    setColor(SKYBLUE);
-    std::cout << "====================================" << std::endl;
-    std::cout << "[ " << this->GetName() << "의 정보 ]" << std::endl;
-    std::cout << "====================================" << std::endl;
     setColor(YELLOW);
-    std::cout << "[ 닉네임: " << this->GetName() << " ]" << std::endl;
-    std::cout << "[ HP: " << this->GetHp() << " ]" << std::endl;
-    std::cout << "[ MP: " << this->GetMp() << " ]" << std::endl;
-    std::cout << "[ 공격력: " << this->GetDmg() << " ]" << std::endl;
-    std::cout << "[ 방어력: " << this->GetDef() << " ]" << std::endl;
-    std::cout << "[ 보호막: " << this->GetShield() << " ]" << std::endl;
+    std::cout << "====================================" << std::endl;
+    std::cout << " [ " << this->GetName() << " 스테이터스 ]" << std::endl;
+    std::cout << "====================================" << std::endl;
+    setColor(SKYBLUE);
+    std::cout << " [ 닉네임: " << this->GetName() << " ]" << std::endl;
+    std::cout << " [ HP: " << this->GetHp() << " ]" << std::endl;
+    std::cout << " [ MP: " << this->GetMp() << " ]" << std::endl;
+    std::cout << " [ 공격력: " << this->GetDmg() << " ]" << std::endl;
+    std::cout << " [ 방어력: " << this->GetDef() << " ]" << std::endl;
+    std::cout << " [ 보호막: " << this->GetShield() << " ]" << std::endl;
     if (this->GetAlive() == true)
-        std::cout << "[ 상태: 생존 ]" << std::endl;
+        std::cout << " [ 상태: 생존 ]" << std::endl;
     else if (this->GetAlive() == false)
-        std::cout << "[ 상태: 사망 ]" << std::endl;
+        std::cout << " [ 상태: 사망 ]" << std::endl;
 
     return;
 }
 
-// Get Info
+// get
 std::string Character::GetName() { return this->name; }
 std::string Character::GetTitle() { return this->title; }
 int Character::GetMaxHp() { return this->maxHp; }
@@ -152,7 +154,7 @@ int Character::GetDefBuff() { return this->defBuff; }
 int Character::GetDefBuffCnt() { return this->defBuffCnt; }
 bool Character::GetAlive() { return this->alive; }
 
-// Set Info
+// set
 void Character::SetName(std::string _name)
 {
     this->name = _name;

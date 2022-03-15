@@ -9,7 +9,7 @@ enum COLOR {
     DARK_SKYBLUE,
     DARK_RED,
     DARK_VOILET,
-    DAKR_YELLOW,
+    DARK_YELLOW,
     GRAY,
     DARK_GRAY,
     BLUE,

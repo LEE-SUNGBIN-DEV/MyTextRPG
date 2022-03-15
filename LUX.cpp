@@ -1,7 +1,7 @@
 #include <random>
+#include "Player.h"
 #include "LUX.h"
 #include "Wand.h"
-#include "Player.h"
 
 // --------------------------------- CLASS
 // --------------------------------- LUX
@@ -39,10 +39,11 @@ bool LUX::Attack(Player* player)
 	int mul = 1;
 
 	setColor(BLUE);
-	std::cout << "[ " << this->GetName() << "이(가) "
+	std::cout << " [ " << this->GetName() << "이(가) "
 		<< player->GetName() << "에게 기본 공격! ]" << std::endl;
 
-	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+		- (player->GetDef() + player->GetDefBuff()));
 	if (dmg < 0) dmg = 0;
 
 	player->SetHp(player->GetHp() - dmg);
@@ -56,12 +57,13 @@ bool LUX::SkillA(Player* player)
 	int mul = 2;
 
 	setColor(BLUE);
-	std::cout << "[ " << this->GetName() << "이(가) "
+	std::cout << " [ " << this->GetName() << "이(가) "
 		<< player->GetName() << "에게 속박 사용! (스턴: 1턴) ]" << std::endl;
 
 	player->SetStunCnt(player->GetStunCnt() + 1);
 
-	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+		- (player->GetDef() + player->GetDefBuff()));
 	if (dmg < 0) dmg = 0;
 
 	player->SetHp(player->GetHp() - dmg);
@@ -75,12 +77,13 @@ bool LUX::SkillB(Player* player)
 	int mul = 1;
 
 	setColor(BLUE);
-	std::cout << "[ " << this->GetName() << "이(가) 보호막 사용! (쉴드+5: 2턴) ]" << std::endl;
+	std::cout << " [ " << this->GetName() << "이(가) 보호막 사용! (쉴드+5: 2턴) ]" << std::endl;
 
 	this->SetShield(this->GetShield() + 5);
 	this->SetShieldCnt(this->GetShieldCnt() + 2);
 
-	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+		- (player->GetDef() + player->GetDefBuff()));
 	if (dmg < 0) dmg = 0;
 
 	player->SetHp(player->GetHp() - dmg);
@@ -94,10 +97,11 @@ bool LUX::SkillC(Player* player)
 	int mul = 6;
 
 	setColor(BLUE);
-	std::cout << "[ " << this->GetName() << "이(가) "
+	std::cout << " [ " << this->GetName() << "이(가) "
 		<< player->GetName() << "에게 데마시아!! ]" << std::endl;
 
-	dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - player->GetDef();
+	dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+		- (player->GetDef() + player->GetDefBuff()));
 	if (dmg < 0) dmg = 0;
 
 	player->SetHp(player->GetHp() - dmg);
@@ -108,10 +112,10 @@ bool LUX::SkillC(Player* player)
 
 void LUX::DropItem(Player* player)
 {
-	setColor(GREEN);
-	std::cout << "[ 럭스의 지팡이를 얻었다! ]" << std::endl;
-	std::cout << "[ " << this->GetDropGold() << " 골드를 얻었다! ]" << std::endl;
-	std::cout << "[ 인벤토리를 확인해보자! ]" << std::endl;
+	setColor(SKYBLUE);
+	std::cout << " [ 럭스의 지팡이를 얻었다! ]" << std::endl;
+	std::cout << " [ " << this->GetDropGold() << " 골드를 얻었다! ]" << std::endl;
+	std::cout << " [ 인벤토리를 확인해보자! ]" << std::endl;
 	player->AddItem(new Wand());
 	player->SetGold(player->GetGold() + this->GetDropGold());
 }

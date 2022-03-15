@@ -4,17 +4,18 @@
 // --------------------------------- CLASS
 // --------------------------------- KNIGHT
 
-// ----------------------공격 함수
+// 공격 함수
 bool Knight::Attack(Monster* monster)
 {
     int dmg;
     int mul = 1;
 
     setColor(RED);
-    std::cout << "[ " << this->GetName() << "이(가) "
+    std::cout << " [ " << this->GetName() << "이(가) "
         << monster->GetName() << "에게 기본 공격! ]" << std::endl;
 
-    dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+    dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+        - (monster->GetDef() + monster->GetDefBuff()));
     if (dmg < 0) dmg = 0;
 
     monster->HpShieldManager(dmg);
@@ -31,17 +32,18 @@ bool Knight::SkillA(Monster* monster)
     setColor(RED);
     if (this->GetMp() < needMana)
     {
-        std::cout << "[ 마나가 부족합니다. ]" << std::endl;
+        std::cout << " [ 마나가 부족합니다. ]" << std::endl;
         return false;
     }
     else
     {
-        std::cout << "[ " << this->GetName() << "이(가) "
+        std::cout << " [ " << this->GetName() << "이(가) "
             << monster->GetName() << "에게 배쉬 사용! (스턴: 1턴) ]" << std::endl;
 
         monster->SetStunCnt(monster->GetStunCnt() + 1);
 
-        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+        dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+            - (monster->GetDef() + monster->GetDefBuff()));
         if (dmg < 0) dmg = 0;
 
         this->SetMp(this->GetMp() - needMana);
@@ -61,13 +63,13 @@ bool Knight::SkillB(Monster* monster)
     setColor(RED);
     if (this->GetMp() < needMana)
     {
-        std::cout << "[ 마나가 부족합니다. ]" << std::endl;
+        std::cout << " [ 마나가 부족합니다. ]" << std::endl;
         return false;
     }
 
     else
     {
-        std::cout << "[ " << this->GetName()
+        std::cout << " [ " << this->GetName()
             << "이(가) 신체강화 사용! (공격력+3, 방어력+3: 2턴) ]" << std::endl;
 
         this->SetDmgBuff(this->GetDmgBuff() + 3);
@@ -75,7 +77,8 @@ bool Knight::SkillB(Monster* monster)
         this->SetDefBuff(this->GetDefBuff() + 3);
         this->SetDefBuffCnt(this->GetDefBuffCnt() + 2);
 
-        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+        dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+            - (monster->GetDef() + monster->GetDefBuff()));
         if (dmg < 0) dmg = 0;
 
         monster->HpShieldManager(dmg);
@@ -94,16 +97,17 @@ bool Knight::SkillC(Monster* monster)
     setColor(RED);
     if (this->GetMp() < needMana)
     {
-        std::cout << "[ 마나가 부족합니다. ]" << std::endl;
+        std::cout << " [ 마나가 부족합니다. ]" << std::endl;
         return false;
     }
 
     else
     {
-        std::cout << "[ " << this->GetName() << "이(가) "
+        std::cout << " [ " << this->GetName() << "이(가) "
             << monster->GetName() << "에게 심판 사용!] " << std::endl;
 
-        dmg = mul * (this->GetDmg() + this->GetDmgBuff()) - monster->GetDef();
+        dmg = mul * ((this->GetDmg() + this->GetDmgBuff())
+            - (monster->GetDef() + monster->GetDefBuff()));
         if (dmg < 0) dmg = 0;
 
         monster->HpShieldManager(dmg);

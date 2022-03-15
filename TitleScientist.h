@@ -17,6 +17,7 @@ public:
 		this->SetHp(50);
 		this->SetMp(50);
 		this->SetItemName("ÄªÈ£: °úÇÐÀÚ");
+		this->SetOriginName(this->GetItemName());
 	}
 
 	void UseItem(Player* player);

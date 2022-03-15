@@ -16,5 +16,6 @@ public:
 		this->SetItemNum(1);
 		this->SetDef(3);
 		this->SetItemName("베인의 선글라스");
+		this->SetOriginName(this->GetItemName());
 	}
 };

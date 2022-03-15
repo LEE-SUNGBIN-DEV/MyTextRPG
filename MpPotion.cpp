@@ -5,7 +5,7 @@ void MpPotion::UseItem(Player* player)
 {
     int value = 50;
 
-    setColor(VIOLET);
+    setColor(SKYBLUE);
     if (this->GetItemNum() > 0)
     {
         if (player->GetMp() <= (player->GetMaxMp() - value))
@@ -17,7 +17,7 @@ void MpPotion::UseItem(Player* player)
             player->SetMp(player->GetMaxMp());
         }
 
-        std::cout << this->GetItemName() << " 아이템을 사용하였습니다." << std::endl;
+        std::cout << " [ " << this->GetItemName() << " 아이템을 사용하였습니다. ]" << std::endl;
     }
 
     else

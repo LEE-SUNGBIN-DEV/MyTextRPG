@@ -52,10 +52,6 @@ public:
         this->SetSkillNameC("NONE_C");
     }
 
-    ~Player()
-    {
-    }
-
     // 공격 함수
     virtual bool Attack(Monster* monster);
     virtual bool SkillA(Monster* monster);
@@ -66,6 +62,7 @@ public:
     void PrintInfo();
     void PrintUserInfo();
     void PrintInventory();
+    void PrintInventoryEquipment();
 
     void AddItem(std::string _itemName);
     void AddItem(std::string _itemName, int _itemNum);
@@ -78,7 +75,14 @@ public:
 
     // Get Info
     std::vector<Item*> GetInventory();
-    std::string GetItemName(int i);
+    std::string GetItemName(int _index);
+    std::string GetOriginName(int _index);
+    int GetItemHoningLevel(int _index);
+    int GetItemDmg(int _index);
+    int GetItemDef(int _index);
+    int GetItemHp(int _index);
+    int GetItemMp(int _index);
+    bool GetIsEquip(int _index);
     std::string GetUserName();
     std::string GetTypeName();
     UserInfo GetUserInfo();
@@ -91,9 +95,15 @@ public:
     std::string GetSkillNameB();
     std::string GetSkillNameC();
 
-
-
     // Set Info
+    void SetItemName(std::string _itemName, int _index);
+    void SetOriginName(std::string _originName, int _index);
+    void SetItemHoningLevel(int _honingLevel, int _index);
+    void SetItemDmg(int _dmg, int _index);
+    void SetItemDef(int _def, int _index);
+    void SetItemHp(int _hp, int _index);
+    void SetItemMp(int _mp, int _index);
+    void SetIsEquip(bool _isEquip, int _index);
     void SetUserInfo(std::string _name, int _age);
     void SetExp(int _exp);
     void SetPlayerType(int _sel);
