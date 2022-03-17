@@ -42,3 +42,9 @@ ipch/
 *.cachefile
 *.VC.db
 *.VC.VC.opendb
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
