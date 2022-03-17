@@ -70,6 +70,7 @@ int StartGame()
     
     while (true)
     {
+        tryAgain:
         std::system("cls");
         setColor(YELLOW);
         cout << "==========================" << endl;
@@ -82,15 +83,19 @@ int StartGame()
 
         cin >> userSel;
 
-        if (userSel == 1 || userSel == 2)
+        if (isdigit(userSel) || (userSel < 1) || (userSel > 2))
         {
-            return userSel;
+            cin.clear();
+            cin.ignore(100, '\n');
+            cout << "WARNING: WRONG INPUT" << endl;
+            GetOneBuffer();
+            goto tryAgain;
         }
 
-        else
+        switch (userSel)
         {
-            cout << "ERROR: WRONG INPUT: MainTitle()" << endl;
-            GetTwoBuffer();
+        case 1: 
+        case 2: return userSel;
         }
     }
 }
