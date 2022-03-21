@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.32126.315
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "myTextRPG", "myTextRPG.vcxproj", "{3140D5E5-1314-45AB-B278-52B853114E7C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "myTextRPG", "myTextRPG\myTextRPG.vcxproj", "{3140D5E5-1314-45AB-B278-52B853114E7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +26,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {5AC3B25A-1A92-4BA3-9EE7-39227DAED3AF}
+		SolutionGuid = {64DFB44A-4312-4704-BB54-BA2A1B5EBCA5}
 	EndGlobalSection
 EndGlobal

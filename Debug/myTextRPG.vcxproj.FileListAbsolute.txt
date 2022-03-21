@@ -1,2 +1,0 @@
-C:\Users\KGA_030\source\repos\LSB\myTextRPG\Debug\myTextRPG.exe
-D:\VisualProject\myTextRPG\Debug\myTextRPG.exe

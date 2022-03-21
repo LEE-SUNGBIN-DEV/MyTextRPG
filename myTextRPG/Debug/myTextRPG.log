@@ -1,0 +1,32 @@
+﻿  Character.cpp
+  Equipment.cpp
+  Forge.cpp
+C:\VisualProject\myTextRPG\myTextRPG\Forge.cpp(13,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  HpPotion.cpp
+  Item.cpp
+  Knight.cpp
+  LUX.cpp
+  MasterYi.cpp
+  Monster.cpp
+  Main.cpp
+  MpPotion.cpp
+  Player.cpp
+C:\VisualProject\myTextRPG\myTextRPG\Player.cpp(140,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\VisualProject\myTextRPG\myTextRPG\Player.cpp(152,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\VisualProject\myTextRPG\myTextRPG\Player.cpp(164,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\VisualProject\myTextRPG\myTextRPG\Player.cpp(181,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\VisualProject\myTextRPG\myTextRPG\Player.cpp(198,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\VisualProject\myTextRPG\myTextRPG\Player.cpp(234,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\VisualProject\myTextRPG\myTextRPG\Player.cpp(258,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\VisualProject\myTextRPG\myTextRPG\Player.cpp(285,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  Shop.cpp
+C:\VisualProject\myTextRPG\myTextRPG\Shop.cpp(12,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  SunGlasses.cpp
+  Sword.cpp
+  TitleScientist.cpp
+  Vayne.cpp
+  Wand.cpp
+  Wizard.cpp
+  Yasuo.cpp
+  코드를 생성하고 있습니다...
+  myTextRPG.vcxproj -> C:\VisualProject\myTextRPG\myTextRPG\Debug\myTextRPG.exe

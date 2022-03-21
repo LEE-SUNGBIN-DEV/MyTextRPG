@@ -1,2 +1,0 @@
-# myTextRPG
- (C++) TextRPGProject
